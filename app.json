@@ -16,6 +16,20 @@
       ]
     ],
     "name": "SIFieldStaffApp",
-    "slug": "SIFieldStaffApp"
+    "slug": "SIFieldStaffApp",
+    "extra": {
+      "router": {
+        "origin": "https://n"
+      },
+      "eas": {
+        "projectId": "5c018402-a376-4735-9e53-e20bfd52d530"
+      }
+    },
+    "android": {
+      "package": "com.khalilovic1.SIFieldStaffApp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.khalilovic1.SIFieldStaffApp"
+    }
   }
 }
