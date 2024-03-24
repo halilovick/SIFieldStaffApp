@@ -1,43 +1,88 @@
-import React from "react";
-import { View, Text } from "react-native";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import { Link } from "expo-router";
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function Login() {
+const LoginScreen = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = () => {
+        console.log('Username:', username);
+        console.log('Password:', password);
+    };
+
     return (
         <View className="flex flex-1">
             <Header />
-            <Content />
+            <Content
+                username={username}
+                setUsername={setUsername}
+                password={password}
+                setPassword={setPassword}
+                handleLogin={handleLogin}
+            />
             <Footer />
         </View>
     );
-}
+};
 
-function Content() {
+const Content = ({ username, setUsername, password, setPassword, handleLogin }) => {
     return (
-        <View className="flex-1">
-            <View className="py-12 md:py-24 lg:py-32 xl:py-48">
-                <View className="px-4 md:px-6">
-                    <View className="flex flex-col items-center gap-4 text-center">
-                        <Text
-                            role="heading"
-                            className="text-3xl text-center native:text-5xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
-                        >
-                            Login with Microsoft
-                        </Text>
-                    </View>
-                    <View className="gap-4">
-                        <Link
-                            suppressHighlighting
-                            className="flex h-9 items-center justify-center overflow-hidden rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 web:shadow ios:shadow transition-colors hover:bg-gray-900/90 active:bg-gray-400/90 web:focus-visible:outline-none web:focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                            href="/"
-                        >
-                            Login
-                        </Link>
-                    </View>
-                </View>
-            </View>
+        <View style={styles.container}>
+            <Text style={styles.title}>Login</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Username or Phone Number"
+                value={username}
+                onChangeText={setUsername}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+            />
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                <Text style={styles.loginButtonText}>Login</Text>
+            </TouchableOpacity>
         </View>
     );
-}
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    input: {
+        width: '100%',
+        height: 50,
+        backgroundColor: '#eee',
+        borderRadius: 10,
+        paddingHorizontal: 20,
+        marginBottom: 20,
+    },
+    loginButton: {
+        width: '100%',
+        height: 50,
+        backgroundColor: '#007bff',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    loginButtonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});
+
+export default LoginScreen;
