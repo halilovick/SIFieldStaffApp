@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import styles from '@/styles';
 
 const LoginScreen = ({ navigation }) => {
@@ -36,23 +37,32 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username or Phone Number"
-                value={username}
-                onChangeText={setUsername}
-            />
+            <Text style={styles.title}>Log in</Text>
+            <View style={styles.inputContainer}>
+                <Icon name="user" size={30} color="#777" style={styles.icon} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Username or Phone Number"
+                    placeholderTextColor="#777"
+                    value={username}
+                    onChangeText={setUsername}
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Icon name="key" size={30} color="#777" style={styles.icon} />
             <TextInput
                 style={styles.input}
                 placeholder="Password"
+                placeholderTextColor="#777"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
             />
+            </View>
             <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>Login</Text>
+                <Text style={styles.loginButtonText}>Log in</Text>
             </TouchableOpacity>
+            <Image source={require('../../assets/background.png')} style={styles.appImage}/>
         </View>
     );
 };
