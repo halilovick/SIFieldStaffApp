@@ -1,19 +1,6 @@
-import Footer from '@/components/footer';
-import Header from '@/components/header';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const storeToken = async (token) => {
-  try {
-    await AsyncStorage.setItem('token', token);
-  } catch (error) {
-    console.error('Error storing token:', error);
-  }
-};
-
-const Stack = createStackNavigator();
+import styles from '@/styles';
 
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -21,7 +8,8 @@ const LoginScreen = ({ navigation }) => {
 
     const handleLogin = async () => {
           try {
-            const response = await fetch('https://your-api-url.com/login', {
+            /*
+            const response = await fetch('https://localhost:7147/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,31 +23,17 @@ const LoginScreen = ({ navigation }) => {
             }
 
             const data = await response.json();
-            storeToken(data);
+            //storeToken(data.token);
+
             console.log('Login successful:', data);
-            navigation.navigate('Home', { username });
+            */
+            navigation.navigate('2 Factor Authentication', { username });
             
         } catch (error) {
             console.error('Error logging in:', error);
         }
     };
 
-    return (
-        <View className="flex flex-1">
-            <Header />
-            <Content
-                username={username}
-                setUsername={setUsername}
-                password={password}
-                setPassword={setPassword}
-                handleLogin={handleLogin}            
-            />
-            <Footer />
-        </View>
-    );
-};
-
-const Content = ({ username, setUsername, password, setPassword, handleLogin }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
@@ -83,56 +57,4 @@ const Content = ({ username, setUsername, password, setPassword, handleLogin }) 
     );
 };
 
-const HomeScreen = ({ route }) => {
-    const { username } = route.params;
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome, {username}!</Text>
-        </View>
-    );
-};
-
-const App = () => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
-    );
-};
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    input: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#eee',
-        borderRadius: 10,
-        paddingHorizontal: 20,
-        marginBottom: 20,
-    },
-    loginButton: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#007bff',
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    loginButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-});
-
-export default App;
+export default LoginScreen;
