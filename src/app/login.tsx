@@ -1,28 +1,26 @@
-import Footer from '@/components/footer';
-import Header from '@/components/header';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const LoginScreen = () => {
+const Stack = createStackNavigator();
+
+const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        console.log('Username:', username);
-        console.log('Password:', password);
+    const handleLogin = async () => {
+        navigation.navigate('Home', { username });
     };
 
     return (
         <View className="flex flex-1">
-            <Header />
             <Content
                 username={username}
                 setUsername={setUsername}
                 password={password}
                 setPassword={setPassword}
-                handleLogin={handleLogin}
+                handleLogin={handleLogin}            
             />
-            <Footer />
         </View>
     );
 };
@@ -48,6 +46,24 @@ const Content = ({ username, setUsername, password, setPassword, handleLogin }) 
                 <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
         </View>
+    );
+};
+
+const HomeScreen = ({ route }) => {
+    const { username } = route.params;
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Welcome, {username}!</Text>
+        </View>
+    );
+};
+
+const App = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
     );
 };
 
@@ -85,4 +101,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+export default App;
