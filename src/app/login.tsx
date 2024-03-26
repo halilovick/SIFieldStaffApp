@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <Image source={require('../../assets/logo.png')} style={styles.appImage}/>
             <Text style={styles.title}>Log in</Text>
             <View style={styles.inputContainer}>
                 <Icon name="user" size={30} color="#777" style={styles.icon} />
@@ -62,7 +63,6 @@ const LoginScreen = ({ navigation }) => {
             <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
                 <Text style={styles.loginButtonText}>Log in</Text>
             </TouchableOpacity>
-            <Image source={require('../../assets/background.png')} style={styles.appImage}/>
         </View>
     );
 };

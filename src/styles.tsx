@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#eee',
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#777',
         paddingHorizontal: 20,
         marginBottom: 20,
     },
@@ -34,8 +36,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     appImage: {
-        width: 500, 
-        height: 400, 
+        width: 150, 
+        height: 150, 
+        marginBottom: 30,
     },
     inputContainer: {
         flexDirection: 'row', 
