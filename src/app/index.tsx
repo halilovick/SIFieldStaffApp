@@ -7,6 +7,29 @@ import TwoFactorAuthScreen from "./twofactorauth";
 const Stack = createStackNavigator();
 
 export default function Page() {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const handleOpenPopup = () => {
+    setIsPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+  const handleAuthenticate = async (code) => {
+    // Call the authentication function from the service
+    const isAuthenticated = await authenticateTwoFactorCode(code);
+    if (isAuthenticated) {
+      console.log("Authentication successful");
+      setIsPopupVisible(false);
+      // Continue with logic after successful authentication
+    } else {
+      console.log("Authentication failed");
+      // Handle authentication failure
+    }
+  };
+
   return (
     <Stack.Navigator>
       <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Field Staff App' }} />

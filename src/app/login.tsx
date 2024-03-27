@@ -58,12 +58,41 @@ const LoginScreen = ({ navigation }) => {
                 value={password}
                 onChangeText={setPassword}
             />
+        <View style={styles.container}>
+            <Image source={require('../../assets/logo.png')} style={styles.appImage}/>
+            <Text style={styles.title}>Log in</Text>
+            <View style={styles.inputContainer}>
+                <Icon name="user" size={30} color="#777" style={styles.icon} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Username or Phone Number"
+                    placeholderTextColor="#777"
+                    value={username}
+                    onChangeText={setUsername}
+                />
             </View>
+            <View style={styles.inputContainer}>
+                <Icon name="key" size={30} color="#777" style={styles.icon} />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#777"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+            />
+            </View>
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                <Text style={styles.loginButtonText}>Log in</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
                 <Text style={styles.loginButtonText}>Log in</Text>
             </TouchableOpacity>
         </View>
     );
+};
+
+export default LoginScreen;
 };
 
 export default LoginScreen;
