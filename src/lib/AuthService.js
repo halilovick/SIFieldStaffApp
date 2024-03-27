@@ -1,9 +1,11 @@
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
+const BASE_URL = "https://fieldlogistics-control.azurewebsites.net/api";
 
 const storeToken = async (token) => {
   try {
     await AsyncStorage.setItem('token', token);
-    console.log("Token stored successfully")
   } catch (error) {
     console.error('Error storing token:', error);
   }
@@ -19,38 +21,41 @@ const getToken = async () => {
   }
 };
 
-const makeAuthenticatedRequest = async (url, method, body = null) => {
+const makeAuthenticatedRequest = async (url, params = null, method, body = null) => {
   try {
     const token = await getToken();
     if (!token) {
-      // User is not logged in, token doesnt exist
+      // User is not logged in, token doesn't exist
       return null;
     }
 
     const headers = {
-      Authorization: `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
 
-    const response = await fetch(url, {
-      method,
-      headers,
-      body: body ? JSON.stringify(body) : null,
-    });
+    const axiosConfig = {
+      baseURL: BASE_URL,
+      url: url,
+      method: method,
+      headers: headers,
+      params: params,
+      data: body ? JSON.stringify(body) : null,
+    };
 
-    if (response.ok) {
-      const newToken = response.headers.get('Authorization');
-      if (newToken) {
-        await storeToken(newToken);
-      }
+    const response = await axios(axiosConfig);
+
+    const newToken = response.headers['authorization'];
+    if (newToken) {
+      await storeToken(newToken);
     }
 
-    return response.json();
-
+    return response.data;
   } catch (error) {
     console.error('Error making authenticated request:', error);
     return null;
   }
 };
+
 
 export { storeToken, getToken, makeAuthenticatedRequest };
