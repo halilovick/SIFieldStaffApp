@@ -1,0 +1,80 @@
+Acceptance Criteria:
+
+storeToken Function:
+
+    The function must successfully store a token in AsyncStorage.
+    In case of an error during storage, an appropriate error message should be logged.
+
+getToken Function:
+
+    The function must retrieve and return the correct token from AsyncStorage if it exists.
+    If no token exists, the function should return null.
+    In case of an error during retrieval, an appropriate error message should be logged, and the function should return null.
+
+makeAuthenticatedRequest Function:
+
+    The function must not proceed with a request if no token is stored.
+    If a token exists, the function should make an HTTP request with the token included in the authorization header.
+    The function should store a new token if the response includes one.
+    In case of an HTTP error, an appropriate error message should be logged, and the function should return null.
+
+
+
+Test Scenarios
+
+1. Storing a Token:
+
+    Store a token successfully.
+    Attempt to store a token when an error occurs.
+
+2. Retrieving a Token:
+
+    Retrieve a token successfully.
+    Attempt to retrieve a token when none exists.
+    Attempt to retrieve a token when an error occurs.
+
+3. Making an Authenticated Request:
+
+    Make a request with a valid token and receive data successfully.
+    Attempt to make a request with no token stored.
+    Receive and store a new token from the response of an authenticated request.
+    Attempt to make a request that results in an HTTP error.
+
+
+
+Test Cases
+
+storeToken Function:
+
+    Test Case 1:
+        Given a valid token,
+        When storeToken is called,
+        Then the token should be stored in AsyncStorage without errors.
+
+getToken Function:
+
+    Test Case 2:
+        Given a token is stored,
+        When getToken is called,
+        Then the function should return the stored token.
+
+
+    Test Case 3:
+
+        Given no token is stored,
+        When getToken is called,
+        Then the function should return null.
+
+makeAuthenticatedRequest Function:
+
+    Test Case 4:
+
+        Given a valid token is stored,
+        When makeAuthenticatedRequest is called with valid request parameters,
+        Then the function should make the HTTP request and return the response data.
+
+    Test Case 5:
+
+        Given no token is stored,
+        When makeAuthenticatedRequest is called,
+        Then the function should not make the HTTP request and return null.
