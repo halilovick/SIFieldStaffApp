@@ -2,12 +2,12 @@ import React from "react";
 import { Text, View } from "react-native";
 import styles from '@/styles';
 
-const RecordDataScreen = ({ navigation }) => {
+const AccountScreen = ({ navigation }) => {
   return (
       <View style={styles.container}>
-          <Text style={styles.title}>Record Data Screen</Text>
+          <Text style={styles.title}>Account Screen</Text>
       </View>
   );
 }
 
-export default RecordDataScreen
+export default AccountScreen
