@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
             });
 
             if (!response.ok) {
-                console.error('Login failed');
+                alert("Incorrect username or password!")
                 return;
             }
 
