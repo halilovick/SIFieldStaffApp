@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '@/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeToken } from '@/lib/AuthService';
 
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -9,8 +11,7 @@ const LoginScreen = ({ navigation }) => {
 
     const handleLogin = async () => {
           try {
-            /*
-            const response = await fetch('https://localhost:7147/api/login', {
+            const response = await fetch('https://fieldlogistics-control.azurewebsites.net/api/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,12 +25,10 @@ const LoginScreen = ({ navigation }) => {
             }
 
             const data = await response.json();
-            //storeToken(data.token);
-
-            console.log('Login successful:', data);
-            */
-            navigation.navigate('2 Factor Authentication', { username });
+            await AsyncStorage.setItem('user', JSON.stringify(data));
+            storeToken(data.token);
             
+            navigation.navigate('2 Factor Authentication', { username });
         } catch (error) {
             console.error('Error logging in:', error);
         }
