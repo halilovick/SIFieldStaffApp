@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '@/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeToken } from '@/lib/AuthService';
 
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -25,12 +26,9 @@ const LoginScreen = ({ navigation }) => {
 
             const data = await response.json();
             await AsyncStorage.setItem('user', JSON.stringify(data));
-
-            console.log('Login successful:', data);
-            console.log('Retrieved response:', await AsyncStorage.getItem('user'));
+            storeToken(data.token);
             
             navigation.navigate('2 Factor Authentication', { username });
-            
         } catch (error) {
             console.error('Error logging in:', error);
         }
