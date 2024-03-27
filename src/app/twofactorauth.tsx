@@ -14,11 +14,13 @@ const TwoFactorAuthScreen = ({ navigation }) => {
     try {
       let result = await TwoFactorAuthService.authenticateTwoFactorCode(code, user.username, user.password, user.token);
       
-      if(result == 200)
+      if(result == 200){
         alert("Success")
+        navigation.navigate('App');
+      }
       else 
         alert("Failed")
-      // navigation.navigate('App');
+      // 
     }
     catch (err) {
       console.log(err)
