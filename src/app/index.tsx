@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './login';
 import AppScreen from './app';
 import TwoFactorAuthScreen from "./twofactorauth";
+import { authenticateTwoFactorCode } from "@/lib/2FAService";
 
 const Stack = createStackNavigator();
 
