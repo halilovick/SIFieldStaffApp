@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 interface SixDigitInputProps {
   value: string;
@@ -22,7 +23,7 @@ const SixDigitInput: React.FC<SixDigitInputProps> = ({ value, onChangeText }) =>
 
       const newCode = newCodes.join('').slice(0, 6);
       onChangeText(newCode);
-      
+
       if (text.length === 1 && index < 5) {
         refs.current[index + 1].focus();
       }
@@ -31,18 +32,22 @@ const SixDigitInput: React.FC<SixDigitInputProps> = ({ value, onChangeText }) =>
 
   return (
     <View style={styles.container}>
-      {codes.map((code, index) => (
-        <TextInput
-          key={index}
-          ref={(ref) => (refs.current[index] = ref as TextInput)}
-          style={styles.input}
-          onChangeText={(text) => handleCodeChange(text, index)}
-          value={code}
-          keyboardType="numeric"
-          maxLength={1}
-        />
-      ))}
+        {codes.map((code, index) => (
+          <TextInput
+            key={index}
+            ref={(ref) => (refs.current[index] = ref as TextInput)}
+            style={styles.input}
+            onChangeText={(text) => handleCodeChange(text, index)}
+            value={code}
+            keyboardType="numeric"
+            maxLength={1}
+          />
+        ))}
+          <Icon.Button name="closecircleo" size={20} onPress={() => setCodes(Array(6).fill('')) } backgroundColor="transparent" // Transparent background
+        color="#333"/>
     </View>
+
+
   );
 };
 
