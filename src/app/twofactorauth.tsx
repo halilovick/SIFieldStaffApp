@@ -4,6 +4,7 @@ import styles from '@/styles';
 import SixDigitInput from '../components/SixDigitInput'; // Assuming SixDigitInput is in the same directory
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const TwoFactorAuthService = require('../lib/2FAService.js');
 
 const TwoFactorAuthScreen = ({ navigation }) => {
@@ -29,14 +30,17 @@ const TwoFactorAuthScreen = ({ navigation }) => {
       let result = await TwoFactorAuthService.authenticateTwoFactorCode(code, user.username, user.password, user.token);
       if (result == 200) {
         navigation.navigate('App');
+      }else{
+        alert("Incorrect code");
       }
-      else
-        alert("Incorrect code")
+      
     }
     catch (err) {
       console.log(err)
     }
   };
+
+
 
   const openAuthApp = async () => {
     const user = JSON.parse(await AsyncStorage.getItem("user"))
@@ -60,7 +64,7 @@ const TwoFactorAuthScreen = ({ navigation }) => {
       </TouchableOpacity>
       {!has2fa && <View>
         <Text style={{ fontSize: 16, marginBottom: 20, marginTop: 40 }}>Looks like you're logging in for the first time. Setup two-factor authentication:</Text>
-        <TouchableOpacity style={styles.googleAuthButton} onPress={openAuthApp}>
+        <TouchableOpacity style={styles.googleAuthButton} onPress={openAuthApp} testID="openAuthAppButton">
           <Text style={{ flex: .8 }}>Open authenticator app</Text>
           <Image source={require('../../assets/googleauth.webp')} resizeMode='contain' style={{ flex: .2 }}></Image>
         </TouchableOpacity>
@@ -69,5 +73,6 @@ const TwoFactorAuthScreen = ({ navigation }) => {
     </View>
   );
 }
+
 
 export default TwoFactorAuthScreen;
