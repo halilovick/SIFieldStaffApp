@@ -36,19 +36,30 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     appImage: {
-        width: 150, 
-        height: 150, 
+        width: 150,
+        height: 150,
         marginBottom: 30,
     },
     inputContainer: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 20,
     },
     icon: {
         marginRight: 5,
         height: 50,
-    }
+    },
+    googleAuthButton: {
+        width: '100%',
+        height: 50,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10,
+        flexDirection: "row", 
+        backgroundColor: '#fff',
+        padding: 10
+    },
 });
 
 export default styles;
