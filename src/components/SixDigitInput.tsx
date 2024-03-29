@@ -32,22 +32,20 @@ const SixDigitInput: React.FC<SixDigitInputProps> = ({ value, onChangeText }) =>
 
   return (
     <View style={styles.container}>
-        {codes.map((code, index) => (
-          <TextInput
-            key={index}
-            ref={(ref) => (refs.current[index] = ref as TextInput)}
-            style={styles.input}
-            onChangeText={(text) => handleCodeChange(text, index)}
-            value={code}
-            keyboardType="numeric"
-            maxLength={1}
-          />
-        ))}
-          <Icon.Button name="closecircleo" size={20} onPress={() => setCodes(Array(6).fill('')) } backgroundColor="transparent" // Transparent background
-        color="#333"/>
+      {codes.map((code, index) => (
+        <TextInput
+          key={index}
+          ref={(ref) => (refs.current[index] = ref as TextInput)}
+          style={styles.input}
+          onChangeText={(text) => handleCodeChange(text, index)}
+          value={code}
+          keyboardType="numeric"
+          maxLength={1}
+        />
+      ))}
+      <Icon.Button name="closecircleo" size={20} onPress={() => setCodes(Array(6).fill(''))} backgroundColor="transparent" // Transparent background
+        color="#333" />
     </View>
-
-
   );
 };
 

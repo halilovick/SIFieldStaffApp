@@ -1,5 +1,4 @@
 import React from "react";
-import styles from '@/styles';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import AccountScreen from './account';
