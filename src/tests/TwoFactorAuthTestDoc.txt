@@ -1,0 +1,27 @@
+Acceptance criteria:
+1.User should be able to see input field for code for 2fa
+2.User should be able to see Authenticate button
+
+
+Test Scenarios:
+
+1. Verify that the SixDigitInput component renders correctly
+2. Verify that the Authenticate button is showed
+3. Verify that the handleVerification is called when Authenticate button is clicked
+
+
+Test Cases:
+
+1. Test Case Name: Render SixDigitInput  Component
+   Input: None
+   Expected Output: SixDigitInput  Component rendered correctly and user is able to enter code
+
+2. Test Case Name: Render Authenticate button
+   Input: None
+   Expected Output: Authenticate button rendered correctly and user is able to press it
+
+3. Test Case Name: handleVerification running when Authenticate button is pressed
+   Input: None
+   Expected Output: handleVerification is called and inside of it authenticateTwoFactorCode is running
+
+

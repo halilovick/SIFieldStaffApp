@@ -1,0 +1,16 @@
+Acceptance Criteria:
+1. User should be able to see the login screen with username, password inputs, and a login button.
+2. User should be able to login using a valid username and password.
+
+Test Scenarios:
+1. Verify that the login screen renders correctly.
+2. Verify that an alert is shown if the username or password is incorrect.
+
+Test Cases:
+1. Test Case Name: Render Login Screen
+   Input: None
+   Expected Output: The login screen should contain username, password inputs, and a login button.
+
+2. Test Case Name: Show Alert on Incorrect Credentials
+   Input: Incorrect username or password
+   Expected Output: An alert should be shown with the message "Incorrect username or password!".
