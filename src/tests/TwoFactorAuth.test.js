@@ -36,42 +36,6 @@ describe("<TwoFactorAuthScreen />", () => {
     expect(authenticateButton).toBeDefined();
   });
 
-  /* it("displays an alert when authentication fails", async () => {
-    const alertSpy = jest.spyOn(Alert, "alert");
-
-    // Render the component
-    const { getByText } = render(<TwoFactorAuthScreen />);
-    const authenticateButton = getByText("Authenticate");
-
-    // Mock the authentication function to return an error
-    jest
-      .spyOn(TwoFactorAuthService, "authenticateTwoFactorCode")
-      .mockRejectedValue(new Error("Authentication failed"));
-
-    // Simulate button press
-    fireEvent.press(authenticateButton);
-
-    // Wait for async actions to complete
-    await waitFor(() => {
-        expect(alertSpy).toHaveBeenCalledWith('');
-      });
-
-    // Assert that Alert.alert was called with the correct message
-    expect(alertSpy).toHaveBeenCalledWith("Authentication failed");
-
-    // Restore the original implementation of Alert.alert
-    alertSpy.mockRestore();
-  });
-*/
-
-  /*it("has a button for opening auth app",()=>{
-
-    const { getByText } = render(<TwoFactorAuthScreen />);
-    const openAuthAppButton = getByText("openAuthApp");
-    expect(authenticateButton).toBeDefined();
-     
-})*/
-
   it("calls handleVerification function when Authenticate button is pressed", async () => {
     // Mock AsyncStorage.getItem to return user data
 
@@ -89,7 +53,7 @@ describe("<TwoFactorAuthScreen />", () => {
     fireEvent.press(authenticateButton);
 
     // Wait for asynchronous tasks to complete
-    await waitFor(() => {});
+    await waitFor(() => { });
 
     // Expect handleVerification to be called
     expect(TwoFactorAuthService.authenticateTwoFactorCode).toHaveBeenCalled();

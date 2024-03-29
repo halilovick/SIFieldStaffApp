@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text, TouchableOpacity, View, Image, Linking } from "react-native";
-import styles from '@/styles';
+import styles from '@/styles/styles';
 import SixDigitInput from '../components/SixDigitInput'; // Assuming SixDigitInput is in the same directory
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const TwoFactorAuthService = require('../lib/2FAService.js');
 
@@ -11,7 +10,7 @@ const TwoFactorAuthScreen = ({ navigation }) => {
   const [code, setCode] = useState('');
   const [has2fa, set2fa] = useState(true);
 
-  useEffect( () => {
+  useEffect(() => {
     const setup = async () => {
       try {
         const user = JSON.parse(await AsyncStorage.getItem('user'));
@@ -23,24 +22,20 @@ const TwoFactorAuthScreen = ({ navigation }) => {
     setup()
   }, []);
 
-
   const handleVerification = async () => {
     const user = JSON.parse(await AsyncStorage.getItem('user'));
     try {
       let result = await TwoFactorAuthService.authenticateTwoFactorCode(code, user.username, user.password, user.token);
       if (result == 200) {
         navigation.navigate('App');
-      }else{
+      } else {
         alert("Incorrect code");
       }
-      
     }
     catch (err) {
       console.log(err)
     }
   };
-
-
 
   const openAuthApp = async () => {
     const user = JSON.parse(await AsyncStorage.getItem("user"))
@@ -73,6 +68,5 @@ const TwoFactorAuthScreen = ({ navigation }) => {
     </View>
   );
 }
-
 
 export default TwoFactorAuthScreen;
