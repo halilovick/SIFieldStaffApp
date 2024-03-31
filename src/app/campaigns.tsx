@@ -7,6 +7,10 @@ import { getCampaignsForUser, getAcceptedCampaignsForUser } from '../lib/Campaig
 
 const CampaignsScreen = ({ navigation }) => {
 
+    const navigateToDetails=(itemId)=>{
+        navigation.navigate('DetailsCampaign')
+    }
+
     const [campaigns,setCampaigns]=useState([]);
     const [acceptedCampaigns,setAcceptedCampaigns]=useState([]);
 
@@ -37,9 +41,9 @@ const CampaignsScreen = ({ navigation }) => {
     return (
         <ScrollView style={styles.campaignsContainer}>
             <Text style={styles.listTitle}>Available campaigns</Text>
-            <CampaignsList  data={campaigns}/>
+            <CampaignsList  data={campaigns} handleNavigation={navigateToDetails}/>
             <Text style={styles.listTitle}>Accepted campaigns </Text>
-            <CampaignsList data={acceptedCampaigns} />
+            <CampaignsList data={acceptedCampaigns} handleNavigation={navigateToDetails} />
         </ScrollView>
     );
   }

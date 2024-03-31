@@ -4,7 +4,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native
 //This component is going to be used in Campaigns screen, to display 
 //lists of campaigns
 
-const CampaignsList=( {data} )=>{
+const CampaignsList=( {data,handleNavigation} )=>{
 
     return (
             <FlatList
@@ -16,7 +16,7 @@ const CampaignsList=( {data} )=>{
                 return(
                     <View style={styles.card}>
                       <Text style={styles.title}>{item.name}</Text>
-                      <TouchableOpacity style={styles.detailsButton}>
+                      <TouchableOpacity style={styles.detailsButton} onPress={()=>handleNavigation(item.id)}>
                         <Text>Details</Text>
                       </TouchableOpacity>
                     </View>

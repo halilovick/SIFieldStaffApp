@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, FlatList } from 'react-native';
 
-const DetailsCampaign = ({ route }) => {
+const DetailsCampaign = ({ route, navigation }) => {
     
     const { item } = route.params || {
         item: {
