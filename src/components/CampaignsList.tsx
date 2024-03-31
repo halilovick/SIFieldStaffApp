@@ -8,6 +8,7 @@ const CampaignsList=( {data} )=>{
 
     return (
             <FlatList
+            keyExtractor={(item)=>item.id}
             data={data}
             horizontal
             showsHorizontalScrollIndicator={false}

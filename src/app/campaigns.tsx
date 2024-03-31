@@ -1,50 +1,45 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, useAnimatedValue } from "react-native"; 
 import HorizontalScroll from "@/components/CampaignsList";
 import { ScrollView } from "react-native-gesture-handler";
 import CampaignsList from "@/components/CampaignsList";
-
+import { getCampaignsForUser, getAcceptedCampaignsForUser } from '../lib/CampaignService';
 
 const CampaignsScreen = ({ navigation }) => {
-    const items=[
-        {id:1,
-        name:'Campaign',
-        description:'Lorem ipsum dolor sit amet, ne tale vidit pri.Nam mucius conceptam incorrupte no, illud saepe alterum an sea.',
-        company_id:1,
-        start_date:'30-03-2024',
-        end_date:'01-04-2024'},
-        
-        {id:2,
-        name:'Campaign',
-        description:'Lorem ipsum dolor sit amet, ne tale vidit pri.Nam mucius conceptam incorrupte no, illud saepe alterum an sea.',
-        company_id:1,
-        start_date:'30-03-2024',
-        end_date:'01-04-2024'},
-        {id:3,
-        name:'Campaign',
-        description:'Lorem ipsum dolor sit amet, ne tale vidit pri.Nam mucius conceptam incorrupte no, illud saepe alterum an sea.',
-        company_id:1,
-        start_date:'30-03-2024',
-        end_date:'01-04-2024'},
-        {id:4,
-        name:'Campaign',
-        description:'Lorem ipsum dolor sit amet, ne tale vidit pri.Nam mucius conceptam incorrupte no, illud saepe alterum an sea.',
-        company_id:1,
-        start_date:'30-03-2024',
-        end_date:'01-04-2024'},
-        {id:5,
-        name:'Campaign',
-        description:'Lorem ipsum dolor sit amet, ne tale vidit pri.Nam mucius conceptam incorrupte no, illud saepe alterum an sea.',
-        company_id:1,
-        start_date:'30-03-2024',
-        end_date:'01-04-2024'}
-    ]
+
+    const [campaigns,setCampaigns]=useState([]);
+    const [acceptedCampaigns,setAcceptedCampaigns]=useState([]);
+
+    useEffect(()=>{
+        const fetchCampaigns=async()=>{
+            try{
+                const userCampaigns=await getCampaignsForUser(1);
+                setCampaigns(userCampaigns);
+            }catch(error){
+                console.log('Error fetching campaigns: ',error);
+            }
+         }
+
+        const fetchAcceptedCampaigns=async()=>{
+                try {
+                    const accepted = await getAcceptedCampaignsForUser(1); 
+                    setAcceptedCampaigns([accepted]); //Since method currently returns a single object, I had to put accepted in an array when passing it to set
+                } catch (error) {
+                    console.log('Error fetching accepted campaigns:', error);
+                }
+            }
+
+        fetchCampaigns();
+        fetchAcceptedCampaigns();
+    },[])
+
+    
     return (
         <ScrollView style={styles.campaignsContainer}>
             <Text style={styles.listTitle}>Available campaigns</Text>
-            <CampaignsList  data={items}/>
+            <CampaignsList  data={campaigns}/>
             <Text style={styles.listTitle}>Accepted campaigns </Text>
-            <CampaignsList data={items} />
+            <CampaignsList data={acceptedCampaigns} />
         </ScrollView>
     );
   }
