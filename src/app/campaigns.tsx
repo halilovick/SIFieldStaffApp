@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, useAnimatedValue } from "react-native";
-import HorizontalScroll from "@/components/CampaignsList";
 import { ScrollView } from "react-native-gesture-handler";
 import CampaignsList from "@/components/CampaignsList";
 import AsyncStorage from '@react-native-async-storage/async-storage';
