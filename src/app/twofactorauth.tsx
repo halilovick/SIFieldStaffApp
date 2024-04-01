@@ -39,8 +39,10 @@ const TwoFactorAuthScreen = ({ navigation }) => {
 
   const openAuthApp = async () => {
     const user = JSON.parse(await AsyncStorage.getItem("user"))
-    const secret = await TwoFactorAuthService.getManualEntryKey(user.username, user.password);
+    const secret = await TwoFactorAuthService.getManualEntryKey(user.username, user.password, user.token);
     const appName = 'SIWeb-App';
+
+    console.log("SECRET", secret)
 
     const url = `otpauth://totp/${user.username}?secret=${secret}&issuer=${appName}`;
 
