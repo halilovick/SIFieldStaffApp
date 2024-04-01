@@ -26,7 +26,6 @@ const LoginScreen = ({ navigation }) => {
 
             const data = await response.json();
             await AsyncStorage.setItem('user', JSON.stringify(data));
-            alert(JSON.stringify(data))
             storeToken(data.token);
 
             navigation.navigate('2 Factor Authentication', { username });
