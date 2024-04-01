@@ -42,15 +42,11 @@ const makeAuthenticatedRequest = async (url, params = null, method, body = null)
       params: params,
       data: body ? JSON.stringify(body) : null,
     };
-
     const response = await axios(axiosConfig);
-
     const newToken = response.headers['authorization'].split(' ')[1];
-    console.log(newToken)
     if (newToken) {
       await storeToken(newToken);
     }
-
     return response.data;
   } catch (error) {
     console.error('Error making authenticated request:', error);

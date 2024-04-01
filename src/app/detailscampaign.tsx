@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, FlatList } from 'react-native';
+const CampaignService = require('../lib/CampaignService.js')
 
 const DetailsCampaign = ({ route, navigation }) => {
     
@@ -17,12 +18,14 @@ const DetailsCampaign = ({ route, navigation }) => {
         }
     };
 
-    const handleAccept = () => {
-
+    const handleAccept = async() => {
+        const res = await CampaignService.updateCampaignStatus(51, 1, "accepted")
+        alert(JSON.stringify(res))
     };
 
-    const handleDecline = () => {
-
+    const handleDecline = async() => {
+        const res = await CampaignService.updateCampaignStatus(51, 1, "declined")
+        alert(JSON.stringify(res))
     };
 
     const data = [
