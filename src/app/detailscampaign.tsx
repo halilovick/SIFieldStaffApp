@@ -1,9 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, FlatList } from 'react-native';
 const CampaignService = require('../lib/CampaignService.js')
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB');
+}
+
 const DetailsCampaign = ({ route, navigation }) => {
-    
     const { item } = route.params || {
         item: {
             name: 'Mock Campaign',
@@ -18,24 +23,25 @@ const DetailsCampaign = ({ route, navigation }) => {
         }
     };
 
-    const handleAccept = async() => {
-        const res = await CampaignService.updateCampaignStatus(51, 1, "accepted")
-        alert(JSON.stringify(res))
+    const handleAccept = async () => {
+        const userId = JSON.parse(await AsyncStorage.getItem('user')).id;
+        const res = await CampaignService.updateCampaignStatus(userId, item.id, "accepted")
+        const campaignId = item.id
+        navigation.navigate('Campaigns', { campaignId })
     };
 
-    const handleDecline = async() => {
-        const res = await CampaignService.updateCampaignStatus(51, 1, "declined")
-        alert(JSON.stringify(res))
+    const handleDecline = async () => {
+        const userId = JSON.parse(await AsyncStorage.getItem('user')).id;
+        const res = await CampaignService.updateCampaignStatus(userId, item.id, "declined")
+        const campaignId = item.id
+        navigation.navigate('Campaigns', { campaignId })
     };
 
     const data = [
         { key: 'Name', value: item.name },
         { key: 'Description', value: item.description },
-        { key: 'Start Date', value: item.start_date },
-        { key: 'End Date', value: item.end_date },
-        { key: 'Location Type', value: item.location.type },
-        { key: 'Address', value: item.location.address },
-        { key: 'Phone Number', value: item.location.phone },
+        { key: 'Start Date', value: formatDate(item.startDate) },
+        { key: 'End Date', value: formatDate(item.endDate) }
     ];
 
     const renderItem = ({ item }) => (
@@ -55,14 +61,14 @@ const DetailsCampaign = ({ route, navigation }) => {
                     renderItem={renderItem}
                     keyExtractor={item => item.key}
                 />
-                <View style={styles.buttonContainer}>
+                {!route.params.accepted ? (<View style={styles.buttonContainer}>
                     <TouchableOpacity style={[styles.button, { backgroundColor: '#007bff' }]} onPress={handleAccept}>
                         <Text style={[styles.buttonText, { color: '#ffffff' }]}>Accept</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleDecline}>
                         <Text style={[styles.buttonText, { color: '#007bff' }]}>Decline</Text>
                     </TouchableOpacity>
-                </View>
+                </View>) : null}
             </View>
         </>
     );
