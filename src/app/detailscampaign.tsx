@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, FlatList, TouchableWithoutFeedback } from 'react-native';
 const CampaignService = require('../lib/CampaignService.js')
 
 function formatDate(dateString) {
@@ -44,6 +44,14 @@ const DetailsCampaign = ({ route, navigation }) => {
         { key: 'End Date', value: formatDate(item.endDate) }
     ];
 
+    const locations = item.locations.map(location => ({
+        id: location.id,
+        address: location.address,
+        contactNumber: location.contactNumber,
+        description: location.description,
+        typeOfLocation: location.typeOfLocation
+    }));
+
     const renderItem = ({ item }) => (
         <View style={styles.detailsContainer}>
             <Text style={styles.label}>{item.key}:</Text>
@@ -51,27 +59,64 @@ const DetailsCampaign = ({ route, navigation }) => {
         </View>
     );
 
+    const CardItem = ({ item, onPress, expanded }) => {
+        return (
+            <TouchableWithoutFeedback onPress={onPress}>
+                <View style={styles.card}>
+                    <Text style={styles.label}>{item.typeOfLocation}: {item.address}</Text>
+                    {expanded && <Text style={styles.value}>{item.contactNumber}</Text>}
+                    {expanded && <Text style={styles.value}>{item.description}</Text>}
+                </View>
+            </TouchableWithoutFeedback>
+        );
+    };
+
+    const [expandedItem, setExpandedItem] = useState(null);
+
+    const handleItemPress = (itemId) => {
+        setExpandedItem(itemId === expandedItem ? null : itemId);
+    };
+
     return (
         <>
             <ImageBackground source={require('assets/detailscampaign_header.jpg')} style={styles.backgroundImage}>
             </ImageBackground>
             <View style={styles.container}>
-                <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.key}
-                />
-                {!route.params.accepted ? (<View style={styles.buttonContainer}>
+                <View>
+                    <FlatList
+                        data={data}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.key}
+                    />
+                </View>
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        style={{ flex: 1 }}
+                        data={locations}
+                        renderItem={({ item }) => (
+                            <CardItem
+                                item={item}
+                                onPress={() => handleItemPress(item.id)}
+                                expanded={item.id === expandedItem}
+                            />
+                        )}
+                        keyExtractor={(item) => item.id}
+                    />
+                </View>
+            </View>
+            {!route.params.accepted ? (
+                <View style={styles.buttonContainer}>
                     <TouchableOpacity style={[styles.button, { backgroundColor: '#007bff' }]} onPress={handleAccept}>
                         <Text style={[styles.buttonText, { color: '#ffffff' }]}>Accept</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleDecline}>
                         <Text style={[styles.buttonText, { color: '#007bff' }]}>Decline</Text>
                     </TouchableOpacity>
-                </View>) : null}
-            </View>
+                </View>
+            ) : null}
         </>
     );
+
 };
 
 const styles = StyleSheet.create({
@@ -82,7 +127,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f8f8',
     },
     backgroundImage: {
-        flex: 0.4,
+        flex: 0.1,
         resizeMode: 'cover',
         justifyContent: 'center',
         height: 300,
@@ -103,6 +148,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'stretch',
+        paddingRight: 20,
+        paddingLeft: 20,
     },
     button: {
         paddingVertical: 10,
@@ -119,6 +166,13 @@ const styles = StyleSheet.create({
         borderColor: '#007bff',
         borderWidth: 1,
     },
+    card: {
+        padding: 10,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+    }
 });
 
 export default DetailsCampaign;
