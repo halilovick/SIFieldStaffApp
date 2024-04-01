@@ -6,7 +6,7 @@ import CampaignsList from "@/components/CampaignsList";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const CampaignService = require('../lib/CampaignService.js')
 
-const CampaignsScreen = ({ navigation }) => {
+const CampaignsScreen = async ({ navigation }) => {
 
     const navigateToDetails = async (itemId) => {
         const item = await CampaignService.getCampaignDetails(itemId)
