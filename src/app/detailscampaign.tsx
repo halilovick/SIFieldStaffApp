@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, FlatList } from 'react-native';
+import CampaignsScreen from './campaigns';
 
 const DetailsCampaign = ({ route, navigation }) => {
     
@@ -18,10 +19,12 @@ const DetailsCampaign = ({ route, navigation }) => {
     };
 
     const handleAccept = () => {
+        navigation.goBack();
 
     };
 
     const handleDecline = () => {
+        navigation.goBack();
 
     };
 

@@ -4,8 +4,9 @@ import HorizontalScroll from "@/components/CampaignsList";
 import { ScrollView } from "react-native-gesture-handler";
 import CampaignsList from "@/components/CampaignsList";
 import { getCampaignsForUser, getAcceptedCampaignsForUser } from '../lib/CampaignService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CampaignsScreen = ({ navigation }) => {
+const CampaignsScreen = async ({ navigation }) => {
 
     const navigateToDetails=(itemId)=>{
         navigation.navigate('DetailsCampaign')
@@ -13,11 +14,13 @@ const CampaignsScreen = ({ navigation }) => {
 
     const [campaigns,setCampaigns]=useState([]);
     const [acceptedCampaigns,setAcceptedCampaigns]=useState([]);
+    const user = JSON.parse(await AsyncStorage.getItem('user'));
 
     useEffect(()=>{
         const fetchCampaigns=async()=>{
             try{
-                const userCampaigns=await getCampaignsForUser(1);
+                const userCampaigns=await getCampaignsForUser(user.id);
+                console.log(userCampaigns)
                 setCampaigns(userCampaigns);
             }catch(error){
                 console.log('Error fetching campaigns: ',error);
@@ -26,7 +29,7 @@ const CampaignsScreen = ({ navigation }) => {
 
         const fetchAcceptedCampaigns=async()=>{
                 try {
-                    const accepted = await getAcceptedCampaignsForUser(1); 
+                    const accepted = await getAcceptedCampaignsForUser(user.id); 
                     setAcceptedCampaigns([accepted]); //Since method currently returns a single object, I had to put accepted in an array when passing it to set
                 } catch (error) {
                     console.log('Error fetching accepted campaigns:', error);
