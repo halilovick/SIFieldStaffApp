@@ -58,10 +58,10 @@ const TwoFactorAuthScreen = ({ navigation }) => {
         <Text style={styles.loginButtonText}>Authenticate</Text>
       </TouchableOpacity>
       {!has2fa && <View>
-        <Text style={{ fontSize: 16, marginBottom: 20, marginTop: 40 }}>Looks like you're logging in for the first time. Setup two-factor authentication:</Text>
-        <TouchableOpacity style={styles.googleAuthButton} onPress={openAuthApp} testID="openAuthAppButton">
-          <Text style={{ flex: .8 }}>Open authenticator app</Text>
-          <Image source={require('../../assets/googleauth.webp')} resizeMode='contain' style={{ flex: .2 }}></Image>
+        <Text style={{ fontSize: 16, marginBottom: 20, marginTop: 40 }}>Looks like you're logging in for the first time. Set up two-factor authentication:</Text>
+        <TouchableOpacity style={styles.openAuthAppButton} onPress={openAuthApp} testID="openAuthAppButton">
+          <Text style={styles.openAuthAppButtonText}>Open Authenticator App</Text>
+          <Image source={require('../../assets/googleauth.webp')} resizeMode='contain' style={styles.authAppIcon} />
         </TouchableOpacity>
       </View>
       }
