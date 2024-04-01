@@ -1,3 +1,4 @@
+const AuthService = require('./AuthService.js')
 /*
     Mock data
 */
@@ -33,11 +34,12 @@ const campaigns = [
     Parameters: userId (User ID of the logged-in user).
 */
 const getCampaignsForUser = async (userId) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => { resolve(userId) }, 1000)
-    }).then((res) => {
-        return campaigns.slice(0, 2)
-    })
+    try {
+        const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/${userId}/none`, null, "GET", null);
+        return response;
+    } catch (error) {
+        throw error;
+    }
 }
 
 /*
@@ -45,11 +47,12 @@ const getCampaignsForUser = async (userId) => {
     Parameters: userId (User ID of the logged-in user).
 */
 const getAcceptedCampaignsForUser = async (userId) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => { resolve(userId) }, 1000)
-    }).then((res) => {
-        return campaigns[2]
-    })
+    try {
+        const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/${userId}/accepted`, null, "GET", null);
+        return response;
+    } catch (error) {
+        throw error;
+    }
 }
 
 /*
@@ -57,11 +60,12 @@ const getAcceptedCampaignsForUser = async (userId) => {
     Parameters: campaignId (ID of the campaign for which details are requested).
 */
 const getCampaignDetails = async (campaignId) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => { resolve(campaignId) }, 1000)
-    }).then((res) => {
-        return campaigns[campaignId - 1]
-    })
+    try {
+        const response = await AuthService.makeAuthenticatedRequest(`/campaigns/${campaignId}`, null, "GET", null);
+        return response;
+    } catch (error) {
+        throw error;
+    }
 }
 
 /*
