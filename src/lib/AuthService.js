@@ -45,7 +45,8 @@ const makeAuthenticatedRequest = async (url, params = null, method, body = null)
 
     const response = await axios(axiosConfig);
 
-    const newToken = response.headers['authorization'];
+    const newToken = response.headers['authorization'].split(' ')[1];
+    console.log(newToken)
     if (newToken) {
       await storeToken(newToken);
     }
