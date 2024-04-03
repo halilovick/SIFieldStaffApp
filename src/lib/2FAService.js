@@ -1,12 +1,21 @@
-import { makeAuthenticatedRequest } from "./AuthService"; // Import makeAuthenticatedRequest function
 import axios from 'axios';
 
-const getManualEntryKey = async (username, password) => {
+const getManualEntryKey = async (username, password, token) => {
     try {
-        const response = await makeAuthenticatedRequest("/login/setup/2fa", null, "POST", { username, password });
-        return response.manualEntryKey;
+        const response = await axios.post(
+            `https://fieldlogistics-control.azurewebsites.net/api/login/setup/2fa`,
+            { username, password },
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        console.log(response.data)
+        return response.data.manualEntryKey;
     } catch (error) {
-        throw error;
+        return 400;
     }
 };
 
