@@ -1,0 +1,55 @@
+Acceptance Criteria & Scenarios:
+
+1. CampaignsScreen:
+   - Scenario: Displaying available and accepted campaigns.
+       When a user navigates to the Campaigns screen.
+     - Expected Outcome: The screen should display both available and accepted campaigns for the user.
+
+2. CampaignsList:
+   - Scenario: Rendering the component with test data.
+       When the CampaignsList component is rendered with test data.
+     - Expected Outcome: The component should render the provided test data correctly.
+
+3. DetailsCampaign:
+   - Scenario1: Rendering the component with mock data.
+       When a user navigates to the DetailsCampaign screen for a specific campaign.
+     - Expected Outcome: The screen should display the campaign details including name, description, start date, and end date.
+   - Scenario2: Accepting a campaign.
+       When a user accepts a campaign by pressing the "Accept" button.
+     - Expected Outcome: The `updateCampaignStatus` function should be called with the correct parameters (userId, campaignId, "accepted").
+   - Scenario3: Declining a campaign.
+       When a user declines a campaign by pressing the "Decline" button.
+     - Expected Outcome: The `updateCampaignStatus` function should be called with the correct parameters (userId, campaignId, "declined").
+
+
+Test Cases:
+
+1. CampaignsScreen:
+   - Test Case: Rendering available campaigns.
+     - Steps:
+       1. Mock AsyncStorage to return a user with available campaigns.
+       2. Mock CampaignService to return the available campaigns.
+       3. Render the CampaignsScreen component.
+   - Test Case: Rendering accepted campaigns.
+     - Steps:
+       1. Mock AsyncStorage to return a user with accepted campaigns.
+       2. Mock CampaignService to return the accepted campaigns.
+       3. Render the CampaignsScreen component.
+
+2. CampaignsList:
+   - Test Case: Rendering with test data.
+     - Steps:
+       1. Render the CampaignsList component with test data.
+
+3. DetailsCampaign:
+   - Test Case: Rendering with mock data.
+     - Steps:
+       1. Render the DetailsCampaign component with mock campaign data.
+   - Test Case: Accepting a campaign.
+     - Steps:
+       1. Render the DetailsCampaign component with a mock campaign.
+       2. Press the "Accept" button.
+   - Test Case: Declining a campaign.
+     - Steps:
+       1. Render the DetailsCampaign component with a mock campaign.
+       2. Press the "Decline" button.
