@@ -10,9 +10,9 @@ const Tab = createBottomTabNavigator();
 const AppScreen = ({ navigation }) => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Record Data" component={RecordDataScreen} />
-      <Tab.Screen name="Account" component={AccountScreen} />
-      <Tab.Screen name="Campaigns" component={CampaignsScreen}/>
+      <Tab.Screen name="Record Data" component={RecordDataScreen} options={{ headerShown: false}}/>
+      <Tab.Screen name="Account" component={AccountScreen}  options={{ headerShown: false}} />
+      <Tab.Screen name="Campaigns" component={CampaignsScreen}  options={{ headerShown: false}}/>
     </Tab.Navigator>
   );
 }

@@ -9,20 +9,8 @@ function formatDate(dateString) {
 }
 
 const DetailsCampaign = ({ route, navigation }) => {
-    const { item } = route.params || {
-        item: {
-            name: 'Mock Campaign',
-            description: 'This is a mock campaign description.',
-            start_date: '2024-04-01',
-            end_date: '2024-04-30',
-            location: {
-                type: 'Mock Location Type',
-                address: '123 Mock St, Mocktown',
-                phone: '123-456-7890',
-            }
-        }
-    };
-
+    const { item } = route.params
+    
     const handleAccept = async () => {
         const userId = JSON.parse(await AsyncStorage.getItem('user')).id;
         const res = await CampaignService.updateCampaignStatus(userId, item.id, "accepted")
@@ -63,9 +51,16 @@ const DetailsCampaign = ({ route, navigation }) => {
         return (
             <TouchableWithoutFeedback onPress={onPress}>
                 <View style={styles.card}>
-                    <Text style={styles.label}>{item.typeOfLocation}: {item.address}</Text>
-                    {expanded && <Text style={styles.value}>{item.contactNumber}</Text>}
-                    {expanded && <Text style={styles.value}>{item.description}</Text>}
+                    <View style={styles.cardHeader}>
+                        <Text style={styles.cardHeaderText}>{item.typeOfLocation}</Text>
+                        <Text style={styles.cardHeaderText}>{item.address}</Text>
+                    </View>
+                    {expanded && (
+                        <View style={styles.cardBody}>
+                            <Text style={[styles.cardBodyText, styles.boldText]}>Contact Number: <Text style={styles.normalText}>{item.contactNumber}</Text></Text>
+                            <Text style={[styles.cardBodyText, styles.boldText]}>Description: <Text style={styles.normalText}>{item.description}</Text></Text>
+                        </View>
+                    )}
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -89,7 +84,8 @@ const DetailsCampaign = ({ route, navigation }) => {
                         keyExtractor={item => item.key}
                     />
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={styles.locationsContainer}>
+                    <Text style={styles.locationTitle}>Locations:</Text>
                     <FlatList
                         style={{ flex: 1 }}
                         data={locations}
@@ -103,17 +99,17 @@ const DetailsCampaign = ({ route, navigation }) => {
                         keyExtractor={(item) => item.id}
                     />
                 </View>
+                {!route.params.accepted ? (
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: '#007bff' }]} onPress={handleAccept}>
+                            <Text style={[styles.buttonText, { color: '#ffffff' }]}>Accept</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleDecline}>
+                            <Text style={[styles.buttonText, { color: '#007bff' }]}>Decline</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : null}
             </View>
-            {!route.params.accepted ? (
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, { backgroundColor: '#007bff' }]} onPress={handleAccept}>
-                        <Text style={[styles.buttonText, { color: '#ffffff' }]}>Accept</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleDecline}>
-                        <Text style={[styles.buttonText, { color: '#007bff' }]}>Decline</Text>
-                    </TouchableOpacity>
-                </View>
-            ) : null}
         </>
     );
 
@@ -124,10 +120,10 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         flex: 1,
         padding: 20,
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#ffffff',
     },
     backgroundImage: {
-        flex: 0.1,
+        flex: 0.25,
         resizeMode: 'cover',
         justifyContent: 'center',
         height: 300,
@@ -137,12 +133,31 @@ const styles = StyleSheet.create({
     },
     label: {
         fontWeight: 'bold',
+        fontSize:16,
         marginBottom: 5,
         color: '#333',
     },
     value: {
         fontSize: 16,
         color: '#666',
+    },
+    boldText: {
+        fontWeight: '500',
+        color: '#333',
+        fontSize:16,
+    },
+    normalText: {
+        fontWeight: 'normal',
+    },
+    locationTitle: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 10,
+        color: '#333',
+    },
+    locationsContainer: {
+        flex: 0.95,
+        marginBottom: 10,
     },
     buttonContainer: {
         flexDirection: 'column',
@@ -154,7 +169,7 @@ const styles = StyleSheet.create({
     button: {
         paddingVertical: 10,
         paddingHorizontal: 20,
-        borderRadius: 30,
+        borderRadius: 25,
         marginBottom: 10,
     },
     buttonText: {
@@ -171,8 +186,27 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderWidth: 1,
         borderColor: '#ccc',
-        borderRadius: 5,
-    }
+        borderRadius: 15,
+        backgroundColor: '#fffff',
+    },
+    cardHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 5,
+    },
+    cardHeaderText: {
+        fontWeight: 'bold',
+        color: '#333',
+        fontSize:16,
+    },
+    cardBody: {
+        marginTop: 5,
+    },
+    cardBodyText: {
+        color: '#666',
+        fontSize:16,
+    },
 });
+
 
 export default DetailsCampaign;
