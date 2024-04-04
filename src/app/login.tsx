@@ -26,7 +26,6 @@ const LoginScreen = ({ navigation }) => {
 
             const data = await response.json();
             await AsyncStorage.setItem('user', JSON.stringify(data));
-            alert(JSON.stringify(data))
             storeToken(data.token);
 
             navigation.navigate('2 Factor Authentication', { username });
@@ -36,34 +35,38 @@ const LoginScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Image source={require('../../assets/logo.png')} style={styles.appImage} />
-            <Text style={styles.title}>Log in</Text>
-            <View style={styles.inputContainer}>
-                <Icon name="user" size={30} color="#777" style={styles.icon} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Username or Phone Number"
-                    placeholderTextColor="#777"
-                    value={username}
-                    onChangeText={setUsername}
-                />
-            </View>
-            <View style={styles.inputContainer}>
-                <Icon name="key" size={30} color="#777" style={styles.icon} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    placeholderTextColor="#777"
-                    secureTextEntry
-                    value={password}
-                    onChangeText={setPassword}
-                />
-            </View>
-            <TouchableOpacity testID="login-button" style={styles.loginButton} onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>Log in</Text>
-            </TouchableOpacity>
-        </View>
+
+        <><Image source={require('assets/detailscampaign_header.jpg')} style={[styles.appImage]} /><Text style={styles.title}>Welcome back!</Text>
+            <View style={[styles.inputContainer]}>
+                <View style={styles.inputWrapper}>
+                    <Icon name="user" size={30} color="#777" style={styles.icon} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Username or Phone Number"
+                        placeholderTextColor="#777"
+                        value={username}
+                        onChangeText={setUsername} />
+                </View>
+                <View style={styles.inputWrapper}>
+                    <Icon name="key" size={30} color="#777" style={styles.icon} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        placeholderTextColor="#777"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
+                    />
+                </View>
+
+                <View style={styles.loginButtonContainer}>
+                    <TouchableOpacity testID="login-button" style={styles.loginButton} onPress={handleLogin}>
+                        <Text style={styles.loginButtonText}>Log in</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View></>
+
     );
 };
 

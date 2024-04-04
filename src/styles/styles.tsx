@@ -1,64 +1,94 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    openAuthAppButton: {
+        flexDirection: 'row',
         alignItems: 'center',
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 25, 
+        backgroundColor: '#FFFFFF', 
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        marginTop:20,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 8,
+      },
+      openAuthAppButtonText: {
+        color: '#2f3849',
+        fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginLeft: 10,
+      },
+      authAppIcon: {
+        width: 30,
+        height: 30,
+      },
+    title: {
+        fontSize: 32,
+        fontWeight: '300',
+        color: '#2f3849',
+        textAlign: 'center',
+        marginTop: 70
     },
     input: {
-        width: '90%',
+        flex: 1,
         height: 50,
-        backgroundColor: '#eee',
-        borderRadius: 10,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 25,
         borderWidth: 1,
-        borderColor: '#777',
+        borderColor: '#E5E5E5',
         paddingHorizontal: 20,
-        marginBottom: 20,
+        color: '#2B3A42',
+        marginTop: 20,
+    },
+    loginButtonContainer: {
+        alignItems: 'center',
+        width: '100%',
     },
     loginButton: {
-        width: '100%',
         height: 50,
-        backgroundColor: '#a3f407',
-        borderRadius: 10,
+        backgroundColor: '#2f3849',
+        borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 10,
+        marginTop: 20,
+        width: '40%',
     },
     loginButtonText: {
-        color: '#444444',
+        color: '#FFFFFF',
         fontSize: 18,
         fontWeight: 'bold',
     },
     appImage: {
-        width: 150,
-        height: 150,
-        marginBottom: 30,
+        borderBottomLeftRadius: 95,
     },
-    inputContainer: {
+    inputWrapper: {
+        padding: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20,
+        width: '100%',
+    },
+    inputContainer: {
+        padding: 10,
+        width: '100%',
     },
     icon: {
+        marginTop: 15,
         marginRight: 5,
-        height: 50,
     },
-    googleAuthButton: {
-        width: '100%',
-        height: 50,
-        borderRadius: 10,
-        alignItems: 'center',
+    container: {
+        flex: 1,
         justifyContent: 'center',
-        marginBottom: 10,
-        flexDirection: "row", 
+        alignItems: 'center',
         backgroundColor: '#fff',
-        padding: 10
+        padding: 20,
     },
 });
 

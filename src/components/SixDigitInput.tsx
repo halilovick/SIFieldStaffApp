@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 interface SixDigitInputProps {
@@ -43,18 +43,25 @@ const SixDigitInput: React.FC<SixDigitInputProps> = ({ value, onChangeText }) =>
           maxLength={1}
         />
       ))}
-      <Icon.Button name="closecircleo" size={20} onPress={() => setCodes(Array(6).fill(''))} backgroundColor="transparent" // Transparent background
-        color="#333" />
+      
+       
+      <TouchableOpacity style={styles.delete2faCodeButton} onPress={() => setCodes(Array(6).fill(''))}>
+         <Text>X</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+/**/
+/**/
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40
+    marginBottom: 40,
+    marginTop:30
   },
   input: {
     width: 40,
@@ -65,6 +72,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 5,
   },
+  delete2faCodeButton:{
+    marginLeft:16
+  }
 });
 
 export default SixDigitInput;
