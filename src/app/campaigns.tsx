@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     campaignsContainer: {
         margin:10,
         flexGrow: 1,
-        paddingVertical: 50,
+        marginTop: 50,
         paddingHorizontal: 10
     },
     listTitle: {
