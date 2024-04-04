@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-//This component is going to be used in Campaigns screen, to display 
-//lists of campaigns
-
 const CampaignsList = ({ data, handleNavigation }) => {
 
     return (
@@ -32,20 +29,22 @@ const CampaignsList = ({ data, handleNavigation }) => {
 
 const styles = StyleSheet.create({
     list: {
-        marginBottom: 20,
+        paddingBottom: 20,
+        alignItems: 'flex-start', 
     },
     card: {
         marginHorizontal: 15,
         backgroundColor: 'white',
         borderRadius: 12,
         overflow: 'hidden',
-        width: 250
+        width: 220,
+        height:300
     },
     title: {
         color: 'black',
         fontSize: 22,
         fontWeight: '400',
-        marginBottom: 32,
+        marginBottom: 10,
         marginHorizontal: 20,
         marginTop: 10
     },
@@ -53,21 +52,23 @@ const styles = StyleSheet.create({
         backgroundColor: 'skyblue',
         paddingHorizontal: 20,
         paddingVertical: 15,
-        marginTop: 8,
-        marginBottom: 18,
         marginHorizontal: 20,
-        borderRadius: 16,
+        marginBottom: 20, 
+        marginTop: 'auto', 
+        borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
+   
     },
     detailsButtonText: {
         fontSize: 14,
         fontWeight: '400',
-        color: 'white'
+        color: 'white',
+       
     },
     cardImage: {
         width: '100%',
-        height: 200,
+        height: 150
     }
 })
 

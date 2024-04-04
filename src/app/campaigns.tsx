@@ -62,12 +62,13 @@ const CampaignsScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
     campaignsContainer: {
+        margin:10,
         flexGrow: 1,
-        paddingVertical: 10,
+        paddingVertical: 50,
         paddingHorizontal: 10
     },
     listTitle: {
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '500',
         marginBottom: 18
     }
