@@ -79,7 +79,7 @@ const DetailsCampaign = ({ route, navigation }) => {
 
     return (
         <>
-            <ImageBackground source={require('assets/detailscampaign_header.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../../assets/detailscampaign_header.jpg')} style={styles.backgroundImage}>
             </ImageBackground>
             <View style={styles.container}>
                 <View>
