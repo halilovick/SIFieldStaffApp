@@ -16,7 +16,7 @@ const CampaignsList = ({ data, handleNavigation }) => {
                 return (
                     <View style={styles.card}>
                         <Image
-                            source={require('assets/detailscampaign_header.jpg')}
+                            source={require('../../assets/detailscampaign_header.jpg')}
                             style={styles.cardImage} />
                         <Text style={styles.title}>{item.name}</Text>
                         <TouchableOpacity style={styles.detailsButton} onPress={() => handleNavigation(item.id)}>
