@@ -1,0 +1,61 @@
+1. getCampaignsForUser Function:
+
+Test Case 1: Successful Retrieval
+
+Test Scenario: When a valid user ID is provided and the server call is successful.
+Acceptance Criteria: The function should make a server call to retrieve campaigns with status "None" for the specified user.
+Expected Outcome: The function should return the expected campaigns data.
+
+Test Case 2: Server Error Handling
+
+Test Scenario: When the server call fails.
+Acceptance Criteria: The function should throw an error.
+Expected Outcome: The function should throw the server error.
+
+
+
+2. getAcceptedCampaignsForUser Function:
+
+Test Case 1: Successful Retrieval
+
+Test Scenario: When a valid user ID is provided and the server call is successful.
+Acceptance Criteria: The function should make a server call to retrieve campaigns with status "Accepted" for the specified user.
+Expected Outcome: The function should return the expected campaigns data.
+
+Test Case 2: Server Error Handling
+
+Test Scenario: When the server call fails.
+Acceptance Criteria: The function should throw an error.
+Expected Outcome: The function should throw the server error.
+
+
+
+3. getCampaignDetails Function:
+
+Test Case 1: Successful Retrieval
+
+Test Scenario: When a valid campaign ID is provided and the server call is successful.
+Acceptance Criteria: The function should make a server call to retrieve details of a specific campaign.
+Expected Outcome: The function should return the expected campaign details.
+
+Test Case 2: Server Error Handling
+
+Test Scenario: When the server call fails.
+Acceptance Criteria: The function should throw an error.
+Expected Outcome: The function should throw the server error.
+
+
+
+4. updateCampaignStatus Function:
+
+Test Case 1: Successful Update
+
+Test Scenario: When valid user ID, campaign ID, and status are provided and the server call is successful.
+Acceptance Criteria: The function should make a server call to update the status of a campaign.
+Expected Outcome: The function should return the expected response after updating the campaign status.
+
+Test Case 2: Server Error Handling
+
+Test Scenario: When the server call fails.
+Acceptance Criteria: The function should throw an error.
+Expected Outcome: The function should throw the server error.
