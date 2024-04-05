@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity,  Image } from 'react-native';
 import styles from '@/styles/campaignsliststyles';
-
 const CampaignsList = ({ data, handleNavigation }) => {
 
     return (
@@ -27,7 +26,5 @@ const CampaignsList = ({ data, handleNavigation }) => {
         />
     );
 }
-
-
 
 export default CampaignsList;
