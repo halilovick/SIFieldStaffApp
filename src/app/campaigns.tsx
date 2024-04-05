@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, useAnimatedValue } from "react-native";
+import { Text, View,  useAnimatedValue } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import CampaignsList from "@/components/CampaignsList";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '@/styles/campaignstyle'
 const CampaignService = require('../lib/CampaignService.js')
 
 const CampaignsScreen = ({ route, navigation }) => {
@@ -60,18 +61,6 @@ const CampaignsScreen = ({ route, navigation }) => {
     );
 }
 
-const styles = StyleSheet.create({
-    campaignsContainer: {
-        margin:10,
-        flexGrow: 1,
-        marginTop: 50,
-        paddingHorizontal: 10
-    },
-    listTitle: {
-        fontSize: 25,
-        fontWeight: '500',
-        marginBottom: 18
-    }
-})
+
 
 export default CampaignsScreen
