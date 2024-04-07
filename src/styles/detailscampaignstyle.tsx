@@ -132,7 +132,17 @@ const styles = StyleSheet.create({
     centeredContainer: {
         alignItems: 'center',
     },
-    
+    dropdownContainer: {
+        marginBottom: 20,
+        marginTop:20
+    },
+    dropdown: {
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingLeft: 10,
+    },
     
 });
 
