@@ -36,6 +36,11 @@ const DetailsCampaign = ({ route, navigation }) => {
         navigation.navigate('Campaigns', { campaignId })
     };
 
+    const handleSeeLocations = () => {
+        navigation.navigate('Campaign Locations List', { locations: item.locations });
+    }; 
+
+
     const data = [
         { key: 'Name', value: item.name },
         { key: 'Description', value: item.description },
@@ -146,18 +151,9 @@ const DetailsCampaign = ({ route, navigation }) => {
 
                 <View style={styles.locationsContainer}>
                     <Text style={styles.locationTitle}>Locations</Text>
-                    <FlatList
-                        style={{ flex: 1 }}
-                        data={locations}
-                        renderItem={({ item }) => (
-                            <CardItem
-                                item={item}
-                                onPress={() => handleItemPress(item.id)}
-                                expanded={item.id === expandedItem}
-                            />
-                        )}
-                        keyExtractor={(item) => item.id}
-                    />
+                    <TouchableOpacity style={styles.button} onPress={handleSeeLocations}>
+                    <Text style={styles.buttonText}>See Campaign Locations</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
 

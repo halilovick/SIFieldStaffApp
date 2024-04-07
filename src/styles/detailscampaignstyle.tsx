@@ -143,7 +143,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingLeft: 10,
     },
-    
+    locContainer: {
+        flex: 1,
+        padding: 10,
+    },
 });
 
 export default styles;
