@@ -1,9 +1,13 @@
 import React , { useState } from 'react';
-import { View, Text, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, FlatList, TouchableWithoutFeedback, TextInput } from 'react-native';
 import styles from '@/styles/detailscampaignstyle';
 
 const CampaignLocationsList = ({ route }) => {
     const { locations } = route.params;
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredLocations = locations.filter(location =>
+        location.typeOfLocation.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const CardItem = ({ item, onPress, expanded }) => {
         return (
@@ -32,9 +36,15 @@ const CampaignLocationsList = ({ route }) => {
 
     return (
         <View style={styles.locContainer}>
+            <TextInput
+                style={styles.searchInput}
+                placeholder="Search locations by name"
+                onChangeText={setSearchQuery}
+                value={searchQuery}
+            />
            <FlatList
                         style={{ flex: 1 }}
-                        data={locations}
+                        data={filteredLocations}
                         renderItem={({ item }) => (
                             <CardItem
                                 item={item}
