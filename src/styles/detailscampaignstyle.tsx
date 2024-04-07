@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         height: 300,
     },
     detailsContainer: {
-        marginBottom: 20,
+        marginBottom: 30,
     },
     label: {
         fontWeight: 'bold',
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     locationsContainer: {
         flex: 0.95,
         marginBottom: 10,
+        marginTop:10
     },
     buttonContainer: {
         flexDirection: 'column',
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 15,
-        backgroundColor: '#fffff',
+        backgroundColor: '#fff',
     },
     cardHeader: {
         flexDirection: 'row',
@@ -91,6 +92,48 @@ const styles = StyleSheet.create({
         color: '#666',
         fontSize:16,
     },
+    nameValue: {
+        marginTop:10,
+        fontWeight: '900', 
+        fontSize: 24, 
+        color: '#333',
+    },
+    dateContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    dateLabel: {
+        marginRight: 10,
+        fontWeight: 'bold',
+        fontSize:16,
+        marginBottom: 5,
+        color: '#333',
+    },
+    dateContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 20,
+        backgroundColor: '#e6f2ff', 
+        padding: 10,
+    },
+    calendarIcon: {
+        marginRight: 10,
+    },
+    dateValueContainer: {
+        flex:0.55
+    },
+    dateValue: {
+        fontSize: 16,
+    },
+    dateLabelContainer: {
+        width: 100
+    },
+    centeredContainer: {
+        alignItems: 'center',
+    },
+    
+    
 });
 
 export default styles;
