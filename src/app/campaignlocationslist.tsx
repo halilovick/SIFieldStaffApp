@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableWithoutFeedback, TextInput, TouchableOpacity } from 'react-native';
 import styles from '@/styles/detailscampaignstyle';
 
@@ -28,12 +28,15 @@ const CampaignLocationsList = ({ route }) => {
                         <View style={styles.cardBody}>
                             <Text style={[styles.cardBodyText, styles.boldText]}>Contact Number: <Text style={styles.normalText}>{item.contactNumber}</Text></Text>
                             <Text style={[styles.cardBodyText, styles.boldText]}>Description: <Text style={styles.normalText}>{item.description}</Text></Text>
-                            <TouchableOpacity style={[styles.recordButton, { backgroundColor: '#007bff'}]} onPress={handleRecord}>
-                            <Text style={[styles.buttonText, { color: '#ffffff'}]}>Record data</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleUnreachable}>
-                            <Text style={[styles.buttonText, { color: '#007bff' }]}>Location is unreachable</Text>
-                        </TouchableOpacity>
+                            {!route.params.accepted ? null :
+                                (<View style={styles.buttonContainer}>
+                                    <TouchableOpacity style={[styles.recordButton, { backgroundColor: '#007bff' }]} onPress={handleRecord}>
+                                        <Text style={[styles.buttonText, { color: '#ffffff' }]}>Record data</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleUnreachable}>
+                                        <Text style={[styles.buttonText, { color: '#007bff' }]}>Location is unreachable</Text>
+                                    </TouchableOpacity>
+                                </View>)}
                         </View>
                     )}
                 </View>
@@ -55,18 +58,18 @@ const CampaignLocationsList = ({ route }) => {
                 onChangeText={setSearchQuery}
                 value={searchQuery}
             />
-           <FlatList
-                        style={{ flex: 1 }}
-                        data={filteredLocations}
-                        renderItem={({ item }) => (
-                            <CardItem
-                                item={item}
-                                onPress={() => handleItemPress(item.id)}
-                                expanded={item.id === expandedItem}
-                            />
-                        )}
-                        keyExtractor={(item) => item.id}
+            <FlatList
+                style={{ flex: 1 }}
+                data={filteredLocations}
+                renderItem={({ item }) => (
+                    <CardItem
+                        item={item}
+                        onPress={() => handleItemPress(item.id)}
+                        expanded={item.id === expandedItem}
                     />
+                )}
+                keyExtractor={(item) => item.id}
+            />
         </View>
     );
 };

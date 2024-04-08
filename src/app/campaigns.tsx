@@ -61,6 +61,4 @@ const CampaignsScreen = ({ route, navigation }) => {
     );
 }
 
-
-
 export default CampaignsScreen
