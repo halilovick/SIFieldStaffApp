@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-import { View, Text, FlatList, TouchableWithoutFeedback, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableWithoutFeedback, TextInput, TouchableOpacity } from 'react-native';
 import styles from '@/styles/detailscampaignstyle';
 
 const CampaignLocationsList = ({ route }) => {
@@ -8,6 +8,13 @@ const CampaignLocationsList = ({ route }) => {
     const filteredLocations = locations.filter(location =>
         location.typeOfLocation.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    const handleRecord = () => {
+        // Implement record data
+    };
+    const handleUnreachable = () => {
+        // Implement location unreachable
+    };
 
     const CardItem = ({ item, onPress, expanded }) => {
         return (
@@ -21,6 +28,12 @@ const CampaignLocationsList = ({ route }) => {
                         <View style={styles.cardBody}>
                             <Text style={[styles.cardBodyText, styles.boldText]}>Contact Number: <Text style={styles.normalText}>{item.contactNumber}</Text></Text>
                             <Text style={[styles.cardBodyText, styles.boldText]}>Description: <Text style={styles.normalText}>{item.description}</Text></Text>
+                            <TouchableOpacity style={[styles.recordButton, { backgroundColor: '#007bff'}]} onPress={handleRecord}>
+                            <Text style={[styles.buttonText, { color: '#ffffff'}]}>Record data</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={handleUnreachable}>
+                            <Text style={[styles.buttonText, { color: '#007bff' }]}>Location is unreachable</Text>
+                        </TouchableOpacity>
                         </View>
                     )}
                 </View>

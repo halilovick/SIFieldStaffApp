@@ -67,6 +67,13 @@ const styles = StyleSheet.create({
         borderColor: '#007bff',
         borderWidth: 1,
     },
+    recordButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 25,
+        marginBottom: 10,
+        marginTop: 10,
+    },
     card: {
         padding: 10,
         marginBottom: 10,
