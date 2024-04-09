@@ -38,7 +38,8 @@ const CampaignsScreen = ({ route, navigation }) => {
 
     const navigateToDetails = async (itemId, accepted) => {
         const item = await CampaignService.getCampaignDetails(itemId)
-        navigation.navigate('DetailsCampaign', { item, accepted })
+        const workStatus = await CampaignService.getCampaignWorkStatus(JSON.parse(await AsyncStorage.getItem('user')).id, itemId)
+        navigation.navigate('DetailsCampaign', { item, accepted, workStatus })
     }
 
     useEffect(() => {

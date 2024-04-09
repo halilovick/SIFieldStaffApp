@@ -1,21 +1,5 @@
 const AuthService = require('./AuthService.js')
 
-/* Update the user's status for a specific campaign.
-*  Params:  userId (User ID), 
-*           campaignId (Campaign ID),
-*           status (Status of the campaign, which can be "not started," "working on it," or "done").
-*/
-const updateCampaignStatus = async (userId, campaignId, status) => {
-    try {
-        const body = { userId, campaignId, status }
-        const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/workStatus`, null, "PUT", body);
-        console.log(response)
-        return response;
-    } catch (error) {
-        throw error;
-    }
-}
-
 /*  Send recorded data to the database.
 *   Params: serialNumber,
 *           inventoryNumber,
@@ -55,7 +39,6 @@ const updateLocationStatus = async (userId, locationId, status) => {
 }
 
 export {
-    updateCampaignStatus,
     recordData,
     updateLocationStatus
 }

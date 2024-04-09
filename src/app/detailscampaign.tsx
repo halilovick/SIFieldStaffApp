@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, FlatList, TouchableWithoutFeedback } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from '@/styles/detailscampaignstyle';
-const CampaignService = require('../lib/CampaignService.js')
 import { FontAwesome } from '@expo/vector-icons';
+
+const CampaignService = require('../lib/CampaignService.js')
 
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -15,11 +16,19 @@ function formatDate(dateString) {
 const DetailsCampaign = ({ route, navigation }) => {
     const { item } = route.params
 
-    const [campaignStatus, setCampaignStatus] = useState(item.status || 'Not started');
+    const [campaignStatus, setCampaignStatus] = useState(route.params.workStatus);
 
     const handleStatusChange = async (status) => {
-        // TODO: Implement the logic here
+        const res = await CampaignService.updateCampaignWorkStatus(JSON.parse(await AsyncStorage.getItem('user')).id, item.id, status.toLowerCase());
+        if (res.status == "OK") {
+            setCampaignStatus(status);
+            route.params.workStatus = status;
+        }
     };
+
+    useEffect(() => {
+        setCampaignStatus(route.params.workStatus);
+    }, [])
 
     const handleAccept = async () => {
         const userId = JSON.parse(await AsyncStorage.getItem('user')).id;
@@ -114,9 +123,9 @@ const DetailsCampaign = ({ route, navigation }) => {
                             style={styles.dropdown}
                             onValueChange={(itemValue, itemIndex) => handleStatusChange(itemValue)}
                         >
-                            <Picker.Item label="Not started" value="Not started" />
-                            <Picker.Item label="Working on it" value="Working on it" />
-                            <Picker.Item label="Done" value="Done" />
+                            <Picker.Item label="Not started" value="not started" />
+                            <Picker.Item label="Working on it" value="working on it" />
+                            <Picker.Item label="Done" value="done" />
                         </Picker>
                     </View>
                 )}
