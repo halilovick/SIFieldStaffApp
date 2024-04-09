@@ -7,7 +7,10 @@ const AuthService = require('./AuthService.js')
 */
 const updateCampaignStatus = async (userId, campaignId, status) => {
     try {
-
+        const body = { userId, campaignId, status }
+        const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/workStatus`, null, "PUT", body);
+        console.log(response)
+        return response;
     } catch (error) {
         throw error;
     }
@@ -20,9 +23,17 @@ const updateCampaignStatus = async (userId, campaignId, status) => {
 *           fullAddress
 *           photo
 */
-const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUri) => {
+const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUrl) => {
     try {
-
+        const body = {
+            serialNumber,
+            inventoryNumber,
+            gpsCoordinates,
+            fullAddress,
+            photoUrl
+        };
+        const response = await AuthService.makeAuthenticatedRequest(`/location/record`, null, "POST", body);
+        return response;
     } catch (error) {
         throw error;
     }
@@ -35,7 +46,9 @@ const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAdd
 */
 const updateLocationStatus = async (userId, locationId, status) => {
     try {
-
+        const body = { userId, locationId, status };
+        const response = await AuthService.makeAuthenticatedRequest(`/LocationStatus`, null, "PUT", body);
+        return response;
     } catch (error) {
         throw error;
     }
