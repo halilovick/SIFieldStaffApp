@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions';
 
 
 const ImageInput=()=>{
-    const [image, setImage] = useState('../../assets/photo-placeholder.jpg');
+    const [image, setImage] = useState('../../assets/photo-placeholder.jp');
 
     const [cameraPermission, setCameraPermission]=useState(null);
   
@@ -52,11 +52,11 @@ const ImageInput=()=>{
    return(
     <View>
         <Image source={{ uri: image }} style={styles.image} />
-        <TouchableOpacity style={styles.button} onPress={selectPicture}>
-            <Text>Gallery</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={takePicture}>
-        <Text>Camera</Text>
+        <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Gallery</Text>
+        </TouchableOpacity >
+        <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Camera</Text>
         </TouchableOpacity>
 
 

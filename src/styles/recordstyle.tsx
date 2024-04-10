@@ -7,29 +7,34 @@ const styles=StyleSheet.create({
        flexDirection:'row',
        alignItems:'center'
     }, 
-    saveButton:{
-      paddingHorizontal:10,
-      paddingVertical:8,
-      backgroundColor:'green',
-      marginHorizontal:12
+    button:{
+      paddingHorizontal:20,
+      paddingVertical:16,
+      backgroundColor:'#2f3849',
+      marginHorizontal:12,
+      alignItems:'center',
+      justifyContent:'center',
+      flexDirection:'row'
     },
-    cancelButton:{
-      paddingHorizontal:10,
-      paddingVertical:8,
-      backgroundColor:'red',
-      marginHorizontal:12
+    buttonText:{
+      color:'white',
+      fontWeight:'500',
+      marginRight:10
     },
     inputContainer: {
         marginTop:40,
         marginBottom: 20,
-        flex:1
+        flex:1,
+        width:'100%',
+        height:700
       },
       container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop:30,
-        marginBottom:30
+        marginBottom:30,
+
       },
       row: {
         flexDirection: 'row',

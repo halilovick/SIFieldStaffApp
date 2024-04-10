@@ -1,7 +1,9 @@
 import React, { useState } from  "react";
-import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import styles from '@/styles/recordstyle';
 import { SearchBar } from "react-native-screens";
+import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import ImageInput from "@/components/ImageInput";
 
 
@@ -29,12 +31,14 @@ const RecordDataScreen = ({ navigation }) => {
        <ImageInput />
 
        <View style={styles.buttonsContainer}>
-       <TouchableOpacity style={styles.saveButton}>
-         <Text>Save</Text>
+       <TouchableOpacity style={styles.button}>
+         <Text style={styles.buttonText}>SAVE</Text>
+         <AntDesign name="save" size={24} color="black" />
        </TouchableOpacity>
 
-       <TouchableOpacity style={styles.cancelButton}>
-         <Text>Cancel</Text>
+       <TouchableOpacity style={styles.button}>
+         <Text style={styles.buttonText}>CANCEL</Text>
+         <MaterialIcons name="cancel" size={24} color="black" />
        </TouchableOpacity>
        </View>
 

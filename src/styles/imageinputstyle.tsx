@@ -9,8 +9,15 @@ const styles=StyleSheet.create({
         backgroundColor:'#2f3849',
         paddingHorizontal:10,
         paddingVertical:12,
-        marginVertical:4
-    }
+        marginVertical:4,
+        color:'white',
+        alignItems:'center'
+    },  
+    buttonText:{
+        color:'white',
+        fontWeight:'500',
+        marginRight:10
+    },
 
 })
 
