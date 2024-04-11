@@ -26,7 +26,7 @@ const updateCampaignStatus = async (userId, campaignId, status) => {
 */
 const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUrl, locationId, userId) => {
     try {
-        const name = await PhotoUploadService.uploadImage(locationId, photoUrl, true)
+        const name = await PhotoUploadService.uploadImage(locationId, photoUrl)
         const body = {
             serialNumber,
             inventoryNumber,
@@ -37,6 +37,7 @@ const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAdd
             userId,
             createdAt: new Date().toISOString()
         };
+        console.log("UPLOADED:",name)
         const response = await AuthService.makeAuthenticatedRequest(`/location/record`, null, "POST", body);
         return response;
     } catch (error) {
