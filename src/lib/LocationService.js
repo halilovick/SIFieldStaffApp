@@ -1,4 +1,5 @@
 const AuthService = require('./AuthService.js')
+const PhotoUploadService = require('./PhotoUploadService.js')
 
 /* Update the user's status for a specific campaign.
 *  Params:  userId (User ID), 
@@ -23,14 +24,18 @@ const updateCampaignStatus = async (userId, campaignId, status) => {
 *           fullAddress
 *           photo
 */
-const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUrl) => {
+const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUrl, locationId, userId) => {
     try {
+        const name = await PhotoUploadService.uploadImage(locationId, photoUrl, true)
         const body = {
             serialNumber,
             inventoryNumber,
             gpsCoordinates,
             fullAddress,
-            photoUrl
+            photoUrl: name,
+            locationId,
+            userId,
+            createdAt: new Date().toISOString()
         };
         const response = await AuthService.makeAuthenticatedRequest(`/location/record`, null, "POST", body);
         return response;

@@ -1,8 +1,3 @@
-/*
-* Initial version
-* Not ready for integration
-*/
-
 const process = require('dotenv').config()
 const fs = require('fs')
 
@@ -55,21 +50,29 @@ async function downloadImage(blobName) {
     }
 }
 
-async function uploadImage(recordId, photoUri){
+// If test is true, then upload will be checked by downloading uploaded image to assets/blobtest
+async function uploadImage(locationId, photoUri, test = false) {
     const containerClient = blobServiceClient.getContainerClient(containerName);
-    const content = await fs.promises.readFile(photoUri) //(photoUri);
-    const blobName = "proba.jpeg" // `record-${recordId}`
+    const content = await fs.promises.readFile(photoUri.slice(7))
+    const blobName = `record-${locationId}-${new Date().toISOString()}`
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
     const uploadBlobResponse = await blockBlobClient.upload(content, content.length);
     console.log(`Upload block blob ${blobName} successfully`);
+    if (test)
+        await downloadImage(blobName)
+    return blobName
 }
 
-
+// Playground function
 async function main() {
     await downloadImage('trg.jpeg')
-    await uploadImage(0,'assets/blobtest/trg.jpeg') // dummy call
+    await uploadImage(0, 'assets/blobtest/trg.jpeg') // dummy call
     await downloadImage('proba.jpeg')
     console.log("Done")
 }
 
-main()
+// main()
+
+export {
+    uploadImage
+}
