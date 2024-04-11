@@ -78,7 +78,6 @@ const getCampaignWorkStatus = async (userId, campaignId) => {
     } catch (error) {
         throw error;
     }
-
 }
 
 export {

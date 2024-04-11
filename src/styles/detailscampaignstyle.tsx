@@ -161,6 +161,14 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 10,
     },
+    unreachableTitle: {
+        fontWeight: '900', 
+        fontSize: 24, 
+        color: '#333',
+        marginTop: 10,
+        marginBottom: 10,
+        alignSelf: 'center',
+    }
 });
 
 export default styles;

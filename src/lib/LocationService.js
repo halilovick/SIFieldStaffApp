@@ -30,8 +30,17 @@ const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAdd
 */
 const updateLocationStatus = async (userId, locationId, status) => {
     try {
-        const body = { userId, locationId, status };
-        const response = await AuthService.makeAuthenticatedRequest(`/LocationStatus`, null, "PUT", body);
+        const body = { userId, locationId, Status: status };
+        const response = await AuthService.makeAuthenticatedRequest(`/LocationStatus/`, null, "PUT", body);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const getLocationsWithStatus = async (userId, status) => {
+    try {
+        const response = await AuthService.makeAuthenticatedRequest(`/LocationStatus/${userId}/${status}/`, null, "GET", null);
         return response;
     } catch (error) {
         throw error;
@@ -40,5 +49,6 @@ const updateLocationStatus = async (userId, locationId, status) => {
 
 export {
     recordData,
-    updateLocationStatus
+    updateLocationStatus,
+    getLocationsWithStatus
 }
