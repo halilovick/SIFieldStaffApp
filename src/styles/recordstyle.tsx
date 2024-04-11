@@ -5,7 +5,8 @@ const styles=StyleSheet.create({
        flex:1,
        justifyContent:'flex-end',
        flexDirection:'row',
-       alignItems:'center'
+       alignItems:'center',
+       marginTop:10
     }, 
     button:{
       paddingHorizontal:20,
@@ -24,17 +25,13 @@ const styles=StyleSheet.create({
     inputContainer: {
         marginTop:40,
         marginBottom: 20,
-        flex:1,
         width:'100%',
-        height:700
       },
       container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop:30,
-        marginBottom:30,
-
+        padding:16,
+        justifyContent:'center',
+        alignItems:'center'
       },
       row: {
         flexDirection: 'row',
@@ -46,7 +43,9 @@ const styles=StyleSheet.create({
         borderColor: 'gray',
         padding: 10,
         marginHorizontal: 5,
+        marginVertical:15,
         flex: 1,
+        width:200
       },
 })
 

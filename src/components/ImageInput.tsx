@@ -52,10 +52,10 @@ const ImageInput=()=>{
    return(
     <View>
         <Image source={{ uri: image }} style={styles.image} />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={selectPicture}>
             <Text style={styles.buttonText}>Gallery</Text>
         </TouchableOpacity >
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={takePicture}>
         <Text style={styles.buttonText}>Camera</Text>
         </TouchableOpacity>
 

@@ -1,10 +1,13 @@
 import React, { useState } from  "react";
-import { Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from "react-native";
+import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import styles from '@/styles/recordstyle';
 import { SearchBar } from "react-native-screens";
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ImageInput from "@/components/ImageInput";
+import { ScrollView } from "react-native-gesture-handler";
+const LocationService = require('../lib/LocationService.js');
+
 
 
 const RecordDataScreen = ({ navigation }) => {
@@ -15,20 +18,21 @@ const RecordDataScreen = ({ navigation }) => {
 
 
   return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
+        
         <View style={styles.inputContainer}>
           <View style={styles.row}>
           <TextInput style={styles.input} placeholder="Serial number" value={serialNumber} onChangeText={setSerialNumber}/>
           <TextInput style={styles.input} placeholder="Inventory number" value={inventoryNumber} onChangeText={setInventoryNumber}/>
+          </View>
+          <View style={styles.row}>
+          <TextInput style={styles.input} placeholder="Coordinates" value={coordinates} onChangeText={setCoordinates}/>
+          <TextInput style={styles.input} placeholder="Full address" value={fullAdress} onChangeText={setFullAdress}/>
+          </View>
         </View>
-        <View style={styles.row}>
-        <TextInput style={styles.input} placeholder="Coordinates" value={coordinates} onChangeText={setCoordinates}/>
-        <TextInput style={styles.input} placeholder="Full address" value={fullAdress} onChangeText={setFullAdress}/>
-        </View>
-       </View>
-     
+        
 
-       <ImageInput />
+       <ImageInput  />
 
        <View style={styles.buttonsContainer}>
        <TouchableOpacity style={styles.button}>
@@ -42,7 +46,7 @@ const RecordDataScreen = ({ navigation }) => {
        </TouchableOpacity>
        </View>
 
-      </View>
+      </ScrollView>
   );
 }
 
