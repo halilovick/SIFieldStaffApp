@@ -26,18 +26,12 @@ const RecordDataScreen = ({ navigation }) => {
     await new Promise(resolve => getImageURL(imageURL => resolve(imageURL)));
 
     try{
-      const body={
-        serialNumber,
-        inventoryNumber,
-        coordinates,
-        fullAdress,
-        imageURL
-      }
+      const response=await LocationService.recordData(serialNumber,inventoryNumber,coordinates,fullAdress,imageURL);
+      resetStates();
+      navigation.navigate('Campaigns');
 
-      console.log(body);
-
-    }catch{
-      alert("Error while recording data!")
+    }catch(error){
+      alert(error);
     }
   }
 
