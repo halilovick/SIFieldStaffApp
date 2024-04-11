@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 
-const ImageInput=()=>{
+const ImageInput=({getImageURL})=>{
     const [image, setImage] = useState('../../assets/photo-placeholder.jp');
 
     const [cameraPermission, setCameraPermission]=useState(null);
@@ -31,6 +31,7 @@ const ImageInput=()=>{
   
       if (!result.canceled) {
         setImage(result.assets[0].uri);
+        getImageURL(result.assets[0].uri)
       }
     };
   
@@ -44,6 +45,7 @@ const ImageInput=()=>{
   
       if (!result.canceled) {
         setImage(result.assets[0].uri);
+        getImageURL(result.assets[0].uri);
       }
     };
     

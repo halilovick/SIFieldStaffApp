@@ -15,7 +15,39 @@ const RecordDataScreen = ({ navigation }) => {
   const [inventoryNumber,setInventoryNumber]=useState('');
   const [coordinates,setCoordinates]=useState('');
   const [fullAdress,setFullAdress]=useState('');
+  const [imageURL,setImageURL]=useState('');
 
+  const getImageURL=(url)=>{
+    setImageURL(url);
+  }
+
+
+  const handleSave=async ()=>{
+    await new Promise(resolve => getImageURL(imageURL => resolve(imageURL)));
+
+    try{
+      const body={
+        serialNumber,
+        inventoryNumber,
+        coordinates,
+        fullAdress,
+        imageURL
+      }
+
+      console.log(body);
+
+    }catch{
+      alert("Error while recording data!")
+    }
+  }
+
+
+  const resetStates=()=>{
+    setSerialNumber('');
+    setCoordinates('');
+    setFullAdress('');
+    setInventoryNumber('');
+  }
 
   return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -32,15 +64,15 @@ const RecordDataScreen = ({ navigation }) => {
         </View>
         
 
-       <ImageInput  />
+       <ImageInput getImageURL={getImageURL} />
 
        <View style={styles.buttonsContainer}>
-       <TouchableOpacity style={styles.button}>
+       <TouchableOpacity style={styles.button} onPress={handleSave}>
          <Text style={styles.buttonText}>SAVE</Text>
          <AntDesign name="save" size={24} color="black" />
        </TouchableOpacity>
 
-       <TouchableOpacity style={styles.button}>
+       <TouchableOpacity style={styles.button} onPress={resetStates}>
          <Text style={styles.buttonText}>CANCEL</Text>
          <MaterialIcons name="cancel" size={24} color="black" />
        </TouchableOpacity>
