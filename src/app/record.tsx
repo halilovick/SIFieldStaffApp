@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ImageInput from "@/components/ImageInput";
 import { ScrollView } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LocationService = require('../lib/LocationService.js');
 
@@ -33,7 +34,7 @@ const RecordDataScreen = ({ route, navigation }) => {
     await new Promise(resolve => getImageURL(imageURL => resolve(imageURL)));
 
     try {
-      const response = await LocationService.recordData(serialNumber, inventoryNumber, coordinates, fullAdress, imageURL);
+      const response = await LocationService.recordData(serialNumber, inventoryNumber, coordinates, fullAdress, imageURL, route.params.locationId, JSON.parse(await AsyncStorage.getItem('user')).id);
       resetStates();
       alert('Data saved successfully!')
       navigation.navigate('Campaigns');

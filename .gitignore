@@ -12,3 +12,4 @@ web-build/
 azureConfig.js
 # macOS
 .DS_Store
+.env

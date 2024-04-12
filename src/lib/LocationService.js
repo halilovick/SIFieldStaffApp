@@ -1,5 +1,4 @@
 const AuthService = require('./AuthService.js')
-const PhotoUploadService = require('./PhotoUploadService.js')
 
 /*  Send recorded data to the database.
 *   Params: serialNumber,
@@ -10,18 +9,16 @@ const PhotoUploadService = require('./PhotoUploadService.js')
 */
 const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUrl, locationId, userId) => {
     try {
-        const name = await PhotoUploadService.uploadImage(locationId, photoUrl)
         const body = {
             serialNumber,
             inventoryNumber,
             gpsCoordinates,
             fullAddress,
-            photoUrl: name,
+            photoUrl,
             locationId,
             userId,
             createdAt: new Date().toISOString()
         };
-        console.log("UPLOADED:",name)
         const response = await AuthService.makeAuthenticatedRequest(`/location/record`, null, "POST", body);
         return response;
     } catch (error) {
