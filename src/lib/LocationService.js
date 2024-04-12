@@ -9,7 +9,6 @@ const updateCampaignStatus = async (userId, campaignId, status) => {
     try {
         const body = { userId, campaignId, status }
         const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/workStatus`, null, "PUT", body);
-        console.log(response)
         return response;
     } catch (error) {
         throw error;
