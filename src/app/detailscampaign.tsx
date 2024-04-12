@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, ImageBackground, FlatList, TouchableWitho
 import { Picker } from '@react-native-picker/picker';
 import styles from '@/styles/detailscampaignstyle';
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 const CampaignService = require('../lib/CampaignService.js')
 
@@ -101,9 +102,9 @@ const DetailsCampaign = ({ route, navigation }) => {
                     />
                 </View>
                 <View style={styles.locationsContainer}>
-                    <Text style={styles.locationTitle}>Locations</Text>
-                    <TouchableOpacity style={styles.button} onPress={handleSeeLocations}>
-                        <Text style={styles.buttonText}>See Campaign Locations</Text>
+                    <TouchableOpacity style={styles.locationButton} onPress={handleSeeLocations}>
+                        <Text style={styles.locationText}>View Campaign Locations</Text>
+                        <Ionicons name="arrow-forward-outline" size={26} color="#333" />
                     </TouchableOpacity>
                 </View>
                 {!route.params.accepted ? (
