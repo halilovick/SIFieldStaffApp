@@ -4,7 +4,6 @@ import styles from "@/styles/imageinputstyle";
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
 
 const ImageInput = ({ getImageURL }) => {
   const [image, setImage] = useState(null);
