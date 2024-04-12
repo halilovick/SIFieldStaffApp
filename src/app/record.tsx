@@ -6,11 +6,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ImageInput from "@/components/ImageInput";
 import { ScrollView } from "react-native-gesture-handler";
+
 const LocationService = require('../lib/LocationService.js');
 
-
-
-const RecordDataScreen = ({ navigation }) => {
+const RecordDataScreen = ({ route, navigation }) => {
   const [serialNumber, setSerialNumber] = useState('');
   const [inventoryNumber, setInventoryNumber] = useState('');
   const [coordinates, setCoordinates] = useState('');
@@ -25,20 +24,23 @@ const RecordDataScreen = ({ navigation }) => {
     setImageURL(url);
   }
 
-
   const handleSave = async () => {
+    if (serialNumber == '' || inventoryNumber == '' || coordinates == '' || fullAdress == '' || imageURL == '') {
+      alert('Please fill all fields and upload an image!');
+      return;
+    }
+
     await new Promise(resolve => getImageURL(imageURL => resolve(imageURL)));
 
     try {
       const response = await LocationService.recordData(serialNumber, inventoryNumber, coordinates, fullAdress, imageURL);
       resetStates();
+      alert('Data saved successfully!')
       navigation.navigate('Campaigns');
-
     } catch (error) {
       alert(error);
     }
   }
-
 
   const resetStates = () => {
     setSerialNumber('');
@@ -61,7 +63,7 @@ const RecordDataScreen = ({ navigation }) => {
       <Text style={{ fontSize: 18, fontWeight: '400', textAlign: 'center' }}>Enter data in all fields below</Text>
 
       <Text style={styles.inputTitle}>Serial Number</Text>
-      <TextInput style={[styles.input, !serialNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={serialNumber} onChangeText={(text) => handleChangeText(text, setSerialNumber, setSerialNumberValid, "^[a-zA-Z0-9]*$")} />
+      <TextInput style={[styles.input, !serialNumberValid && styles.invalidInput]} required placeholder="e.g. 123456789" value={serialNumber} onChangeText={(text) => handleChangeText(text, setSerialNumber, setSerialNumberValid, "^[a-zA-Z0-9]*$")} />
 
       <Text style={styles.inputTitle}>Inventory number</Text>
       <TextInput style={[styles.input, !inventoryNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={inventoryNumber} onChangeText={(text) => handleChangeText(text, setInventoryNumber, setInventoryNumberValid, "^[a-zA-Z0-9]*$")} />
