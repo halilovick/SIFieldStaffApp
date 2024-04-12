@@ -56,9 +56,35 @@ const updateCampaignStatus = async (userId, campaignId, status) => {
     }
 }
 
+/* Update the user's status for a specific campaign.
+*  Params:  userId (User ID), 
+*           campaignId (Campaign ID),
+*           status (Work status of the campaign, which can be "not started," "working on it," or "done").
+*/
+const updateCampaignWorkStatus = async (userId, campaignId, status) => {
+    try {
+        const body = { userId, campaignId, WorkingStatus: status }
+        const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/workStatus`, null, "PUT", body);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const getCampaignWorkStatus = async (userId, campaignId) => {
+    try {
+        const response = await AuthService.makeAuthenticatedRequest(`/user/campaigns/workStatus/${userId}/${campaignId}`, null, "GET", null);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export {
     getCampaignsForUser,
     getAcceptedCampaignsForUser,
     getCampaignDetails,
-    updateCampaignStatus
+    updateCampaignStatus,
+    updateCampaignWorkStatus,
+    getCampaignWorkStatus
 }

@@ -1,17 +1,36 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import styles from '@/styles/detailscampaignstyle';
+import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 const CampaignService = require('../lib/CampaignService.js')
 
 function formatDate(dateString) {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB');
+    const options = { day: '2-digit', month: 'short', year: 'numeric' } as const;
+    return date.toLocaleDateString('en-GB', options);
 }
 
 const DetailsCampaign = ({ route, navigation }) => {
     const { item } = route.params
-    
+
+    const [campaignStatus, setCampaignStatus] = useState(route.params.workStatus);
+
+    const handleStatusChange = async (status) => {
+        const res = await CampaignService.updateCampaignWorkStatus(JSON.parse(await AsyncStorage.getItem('user')).id, item.id, status.toLowerCase());
+        if (res.status == "OK") {
+            setCampaignStatus(status);
+            route.params.workStatus = status;
+        }
+    };
+
+    useEffect(() => {
+        setCampaignStatus(route.params.workStatus);
+    }, [])
+
     const handleAccept = async () => {
         const userId = JSON.parse(await AsyncStorage.getItem('user')).id;
         const res = await CampaignService.updateCampaignStatus(userId, item.id, "accepted")
@@ -26,6 +45,11 @@ const DetailsCampaign = ({ route, navigation }) => {
         navigation.navigate('Campaigns', { campaignId })
     };
 
+    const handleSeeLocations = () => {
+        const accepted = route.params.accepted;
+        navigation.navigate('Campaign Locations List', { locations: item.locations, accepted });
+    };
+
     const data = [
         { key: 'Name', value: item.name },
         { key: 'Description', value: item.description },
@@ -33,44 +57,35 @@ const DetailsCampaign = ({ route, navigation }) => {
         { key: 'End Date', value: formatDate(item.endDate) }
     ];
 
-    const locations = item.locations.map(location => ({
-        id: location.id,
-        address: location.address,
-        contactNumber: location.contactNumber,
-        description: location.description,
-        typeOfLocation: location.typeOfLocation
-    }));
-
-    const renderItem = ({ item }) => (
-        <View style={styles.detailsContainer}>
-            <Text style={styles.label}>{item.key}:</Text>
-            <Text style={styles.value}>{item.value}</Text>
-        </View>
-    );
-
-    const CardItem = ({ item, onPress, expanded }) => {
-        return (
-            <TouchableWithoutFeedback onPress={onPress}>
-                <View style={styles.card}>
-                    <View style={styles.cardHeader}>
-                        <Text style={styles.cardHeaderText}>{item.typeOfLocation}</Text>
-                        <Text style={styles.cardHeaderText}>{item.address}</Text>
-                    </View>
-                    {expanded && (
-                        <View style={styles.cardBody}>
-                            <Text style={[styles.cardBodyText, styles.boldText]}>Contact Number: <Text style={styles.normalText}>{item.contactNumber}</Text></Text>
-                            <Text style={[styles.cardBodyText, styles.boldText]}>Description: <Text style={styles.normalText}>{item.description}</Text></Text>
-                        </View>
-                    )}
+    const renderItem = ({ item }) => {
+        if (item.key === 'Name') {
+            return (
+                <View style={[styles.detailsContainer, styles.centeredContainer]}>
+                    <Text style={styles.nameValue}>{item.value}</Text>
                 </View>
-            </TouchableWithoutFeedback>
-        );
-    };
-
-    const [expandedItem, setExpandedItem] = useState(null);
-
-    const handleItemPress = (itemId) => {
-        setExpandedItem(itemId === expandedItem ? null : itemId);
+            );
+        } else if (item.key === 'Start Date' || item.key === 'End Date') {
+            return (
+                <View style={styles.dateContainer}>
+                    <View style={styles.dateLabelContainer}>
+                        <Text style={styles.dateLabel}>{item.key}</Text>
+                    </View>
+                    <View style={styles.dateValueContainer}>
+                        <View style={styles.dateContent}>
+                            <FontAwesome name="calendar" size={24} color="black" style={styles.calendarIcon} />
+                            <Text style={styles.dateValue}>{item.value}</Text>
+                        </View>
+                    </View>
+                </View>
+            );
+        } else {
+            return (
+                <View style={styles.detailsContainer}>
+                    <Text style={styles.label}>{item.key}</Text>
+                    <Text style={styles.value}>{item.value}</Text>
+                </View>
+            );
+        }
     };
 
     return (
@@ -86,19 +101,10 @@ const DetailsCampaign = ({ route, navigation }) => {
                     />
                 </View>
                 <View style={styles.locationsContainer}>
-                    <Text style={styles.locationTitle}>Locations:</Text>
-                    <FlatList
-                        style={{ flex: 1 }}
-                        data={locations}
-                        renderItem={({ item }) => (
-                            <CardItem
-                                item={item}
-                                onPress={() => handleItemPress(item.id)}
-                                expanded={item.id === expandedItem}
-                            />
-                        )}
-                        keyExtractor={(item) => item.id}
-                    />
+                    <TouchableOpacity style={styles.locationButton} onPress={handleSeeLocations}>
+                        <Text style={styles.locationText}>View Campaign Locations</Text>
+                        <Ionicons name="arrow-forward-outline" size={26} color="#333" />
+                    </TouchableOpacity>
                 </View>
                 {!route.params.accepted ? (
                     <View style={styles.buttonContainer}>
@@ -109,11 +115,23 @@ const DetailsCampaign = ({ route, navigation }) => {
                             <Text style={[styles.buttonText, { color: '#007bff' }]}>Decline</Text>
                         </TouchableOpacity>
                     </View>
-                ) : null}
+                ) : (
+                    <View style={styles.dropdownContainer}>
+                        <Text style={styles.label}>Update Progress</Text>
+                        <Picker
+                            selectedValue={campaignStatus}
+                            style={styles.dropdown}
+                            onValueChange={(itemValue, itemIndex) => handleStatusChange(itemValue)}
+                        >
+                            <Picker.Item label="Not started" value="not started" />
+                            <Picker.Item label="Working on it" value="working on it" />
+                            <Picker.Item label="Done" value="done" />
+                        </Picker>
+                    </View>
+                )}
             </View>
         </>
     );
-
 };
 
 export default DetailsCampaign;
