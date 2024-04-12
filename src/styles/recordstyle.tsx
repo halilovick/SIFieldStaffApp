@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 const styles=StyleSheet.create({
     buttonsContainer:{
        flex:1,
-       justifyContent:'flex-end',
+       justifyContent:'center',
        flexDirection:'row',
        alignItems:'center',
-       marginTop:10
+       marginVertical:15
     }, 
     button:{
       paddingHorizontal:20,
@@ -31,7 +31,7 @@ const styles=StyleSheet.create({
         marginTop:30,
         padding:16,
         justifyContent:'center',
-        alignItems:'center'
+        backgroundColor:'#e5e5e5'
       },
       row: {
         flexDirection: 'row',
@@ -45,8 +45,19 @@ const styles=StyleSheet.create({
         marginHorizontal: 5,
         marginVertical:15,
         flex: 1,
-        width:200
+        borderRadius:12,
       },
+      invalidInput:{
+        borderColor:'red'
+      },
+      inputTitle:{
+        fontSize:30,
+        fontWeight:'500',
+        marginVertical:12
+      },
+      imageInputTitle:{
+        textAlign:'center',
+      }
 })
 
 export default styles;

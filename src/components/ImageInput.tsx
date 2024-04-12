@@ -12,12 +12,13 @@ const ImageInput=({getImageURL})=>{
 
     const [cameraPermission, setCameraPermission]=useState(null);
   
-    useEffect(() => {
+   /* useEffect(() => {
       (async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        console.log("Permission status:", status); 
         setCameraPermission(status === 'granted');
       })();
-    }, []);
+    }, []);*/
   
   
     const selectPicture = async () => {
