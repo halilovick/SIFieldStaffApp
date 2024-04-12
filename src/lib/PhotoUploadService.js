@@ -26,7 +26,7 @@ async function downloadImage(blobName) {
     const downloadBlockBlobResponse = await blobClient.download();
     const downloaded = await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
 
-    return await saveBlobToFile(downloaded, `${blobName}.jpeg`)
+    return await saveBlobToFile(downloaded, blobName)
 
     async function streamToBuffer(readableStream) {
         return new Promise((resolve, reject) => {
@@ -57,8 +57,8 @@ async function downloadImage(blobName) {
 
 async function uploadImage(recordId, photoUri){
     const containerClient = blobServiceClient.getContainerClient(containerName);
-    const content = await fs.promises.readFile('assets/blobtest/test.jpeg') //(photoUri);
-    const blobName = "test2" // `record-${recordId}`
+    const content = await fs.promises.readFile(photoUri) //(photoUri);
+    const blobName = "proba.jpeg" // `record-${recordId}`
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
     const uploadBlobResponse = await blockBlobClient.upload(content, content.length);
     console.log(`Upload block blob ${blobName} successfully`);
@@ -66,9 +66,9 @@ async function uploadImage(recordId, photoUri){
 
 
 async function main() {
-    await downloadImage('test')
-    await uploadImage(0,'test') // dummy call
-    await downloadImage('test2')
+    await downloadImage('trg.jpeg')
+    await uploadImage(0,'assets/blobtest/trg.jpeg') // dummy call
+    await downloadImage('proba.jpeg')
     console.log("Done")
 }
 

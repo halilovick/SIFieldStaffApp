@@ -5,6 +5,7 @@ import AppScreen from './app';
 import TwoFactorAuthScreen from "./twofactorauth";
 import DetailsCampaign from "./detailscampaign";
 import CampaignLocationsList from "./campaignlocationslist";
+import RecordDataScreen from "./record";
 
 const Stack = createStackNavigator();
 
@@ -15,7 +16,8 @@ export default function Page() {
       <Stack.Screen name="2 Factor Authentication" component={TwoFactorAuthScreen} options={{ headerShown: false, gestureEnabled: false, headerLeft: null }} />
       <Stack.Screen name="App" component={AppScreen} options={{ headerShown: false, gestureEnabled: false }} />
       <Stack.Screen name="DetailsCampaign" component={DetailsCampaign} options={{headerShown: false, gestureEnabled: false}} />
-      <Stack.Screen name="Campaign Locations List" component={CampaignLocationsList} options={{ title: 'Campaign Locations' }} />
+      <Stack.Screen name="Campaign Locations List" component={CampaignLocationsList} />
+      <Stack.Screen name="Record data" component={RecordDataScreen} options={{headerShown: false, gestureEnabled: false}}/>
     </Stack.Navigator>
   );
 }

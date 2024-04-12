@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LocationService = require('../lib/LocationService.js')
 
-const CampaignLocationsList = ({ route }) => {
+const CampaignLocationsList = ({ route, navigation }) => {
     const { locations } = route.params;
     const [searchQuery, setSearchQuery] = useState('');
     const filteredLocations = locations.filter(location =>
@@ -37,8 +37,8 @@ const CampaignLocationsList = ({ route }) => {
         fetchData()
     }, [])
 
-    const handleRecord = () => {
-        // Implement record data
+    const handleRecord = (locationId) => {
+        navigation.navigate('Record data', { locationId: locationId })
     };
 
     const handleUnreachable = async (locationId) => {
@@ -68,8 +68,8 @@ const CampaignLocationsList = ({ route }) => {
                             <Text style={[styles.cardBodyText, styles.boldText]}>Contact Number: <Text style={styles.normalText}>{item.contactNumber}</Text></Text>
                             <Text style={[styles.cardBodyText, styles.boldText]}>Description: <Text style={styles.normalText}>{item.description}</Text></Text>
                             {!route.params.accepted || containsLocationId(item.id) ? null :
-                                (<View style={styles.button}>
-                                    <TouchableOpacity style={[styles.recordButton, { backgroundColor: '#007bff' }]} onPress={handleRecord}>
+                                (<View style={styles.buttonContainer}>
+                                    <TouchableOpacity style={[styles.recordButton, { backgroundColor: '#007bff' }]} onPress={(itemId) => handleRecord(item.id)}>
                                         <Text style={[styles.buttonText, { color: '#ffffff' }]}>Record data</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={(itemId) => handleUnreachable(item.id)}>
