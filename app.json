@@ -2,7 +2,7 @@
   "expo": {
     "scheme": "acme",
     "userInterfaceStyle": "automatic",
-    "orientation": "default",
+    "orientation": "portrait",
     "web": {
       "output": "static",
       "bundler": "metro"
@@ -30,6 +30,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.khalilovic1.SIFieldStaffApp"
-    }
+    },
+    "permissions":["CAMERA"]
   }
 }
