@@ -1,75 +1,54 @@
-/*
-* Initial version
-* Not ready for integration
-*/
+const axios = require('axios')
+const azureConfig = require('../../azureConfig.js')
+const FileSystem = require('expo-file-system')
 
-const process = require('dotenv').config()
-const fs = require('fs')
+const account = azureConfig.AccountName
+const accountKey = azureConfig.AccountKey
+const protocol = azureConfig.DefaultEndpointsProtocol
+const suffix = azureConfig.EndpointSuffix
+const container = azureConfig.ContainerName
 
-const { BlobServiceClient, StorageSharedKeyCredential } = require("@azure/storage-blob");
+const route = `${protocol}://${account}.blob.${suffix}/${container}`
 
-const account = process.parsed.AccountName
-const accountKey = process.parsed.AccountKey
-
-const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
-const blobServiceClient = new BlobServiceClient(
-    `https://${account}.blob.core.windows.net`,
-    sharedKeyCredential
-);
-const containerName = "locationimages";
-
-async function downloadImage(blobName) {
-
-    const containerClient = blobServiceClient.getContainerClient(containerName);
-    const blobClient = containerClient.getBlobClient(blobName);
-
-    const downloadBlockBlobResponse = await blobClient.download();
-    const downloaded = await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
-
-    return await saveBlobToFile(downloaded, blobName)
-
-    async function streamToBuffer(readableStream) {
-        return new Promise((resolve, reject) => {
-            const chunks = [];
-            readableStream.on("data", (data) => {
-                chunks.push(data instanceof Buffer ? data : Buffer.from(data));
-            });
-            readableStream.on("end", () => {
-                resolve(Buffer.concat(chunks));
-            });
-            readableStream.on("error", reject);
-        });
+async function downloadImage(image) {
+    try {
+        const response = await axios.get(`${route}/${image}`,
+            { params: { "sasToken": accountKey } }
+        );
+        console.log(response)
+        console.log("DATA", response.data)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
     }
+}
 
-    async function saveBlobToFile(blob, fileName) {
-        const filePath = `assets/blobtest/${fileName}`;
-        const buffer = Buffer.from(blob, 'base64');
-        fs.writeFile(filePath, buffer, err => {
-            if (err) {
-                console.error('Error writing file:', err);
-            } else {
-                console.log('File saved successfully.');
+async function uploadImage(locationId, fileUri) {
+    try {
+        const fileData = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64 });
+        const name = `record-${locationId}-${new Date().toISOString()}`
+        const response = await axios.put(`${route}/${name}`, fileData, {
+            headers: {
+                'Authorization': `SharedKey ${account}:${accountKey}`
             }
         });
-
+        console.log(response)
+        console.log('File uploaded successfully');
+        return name
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        throw error;
     }
 }
 
-async function uploadImage(recordId, photoUri){
-    const containerClient = blobServiceClient.getContainerClient(containerName);
-    const content = await fs.promises.readFile(photoUri) //(photoUri);
-    const blobName = "proba.jpeg" // `record-${recordId}`
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-    const uploadBlobResponse = await blockBlobClient.upload(content, content.length);
-    console.log(`Upload block blob ${blobName} successfully`);
-}
-
-
+// Playground function
 async function main() {
-    await downloadImage('trg.jpeg')
-    await uploadImage(0,'assets/blobtest/trg.jpeg') // dummy call
-    await downloadImage('proba.jpeg')
-    console.log("Done")
+    const res = await uploadImage(0,'file:///Internal storage/DCIM/Screenshots/example.jpg')
+    console.log(res)
 }
 
-main()
+
+export{
+    uploadImage
+}
