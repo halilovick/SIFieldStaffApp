@@ -51,7 +51,7 @@ const styles=StyleSheet.create({
         borderColor:'red'
       },
       inputTitle:{
-        fontSize:30,
+        fontSize:24,
         fontWeight:'500',
         marginVertical:12
       },
