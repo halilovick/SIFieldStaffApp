@@ -15,12 +15,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 10,
   },
   buttonText: {
     color: 'white',
     fontWeight: '500',
-    marginRight: 10
+    marginRight: 10,
   },
   inputContainer: {
     marginTop: 40,
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
   },
   imageInputTitle: {
     textAlign: 'center',
+    marginBottom: 10
   }
 })
 

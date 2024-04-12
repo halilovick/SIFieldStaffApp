@@ -50,7 +50,6 @@ const DetailsCampaign = ({ route, navigation }) => {
         navigation.navigate('Campaign Locations List', { locations: item.locations, accepted });
     };
 
-
     const data = [
         { key: 'Name', value: item.name },
         { key: 'Description', value: item.description },

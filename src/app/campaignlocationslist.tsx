@@ -68,7 +68,7 @@ const CampaignLocationsList = ({ route, navigation }) => {
                             <Text style={[styles.cardBodyText, styles.boldText]}>Contact Number: <Text style={styles.normalText}>{item.contactNumber}</Text></Text>
                             <Text style={[styles.cardBodyText, styles.boldText]}>Description: <Text style={styles.normalText}>{item.description}</Text></Text>
                             {!route.params.accepted || containsLocationId(item.id) ? null :
-                                (<View style={styles.buttonContainer}>
+                                (<View style={styles.locationStatusButton}>
                                     <TouchableOpacity style={[styles.recordButton, { backgroundColor: '#007bff' }]} onPress={(itemId) => handleRecord(item.id)}>
                                         <Text style={[styles.buttonText, { color: '#ffffff' }]}>Record data</Text>
                                     </TouchableOpacity>
@@ -104,7 +104,7 @@ const CampaignLocationsList = ({ route, navigation }) => {
                 <Ionicons name="search" size={24} color="black" style={styles.searchIcon} />
                 <TextInput
                     style={styles.searchInput}
-                    placeholder="Search locations by name"
+                    placeholder="Search locations by description"
                     onChangeText={setSearchQuery}
                     value={searchQuery}
                 />

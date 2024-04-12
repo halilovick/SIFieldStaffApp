@@ -49,6 +49,10 @@ const RecordDataScreen = ({ route, navigation }) => {
     setInventoryNumber('');
   }
 
+  const handleCancel = () => {
+    navigation.navigate('Campaigns');
+  }
+
   const handleChangeText = (text, setState, setStateValid, regexPattern) => {
     let regex = new RegExp(regexPattern);
     const isValidInput = regex.test(text);
@@ -83,7 +87,7 @@ const RecordDataScreen = ({ route, navigation }) => {
           <AntDesign name="save" size={24} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={resetStates}>
+        <TouchableOpacity style={styles.button} onPress={handleCancel}>
           <Text style={styles.buttonText}>CANCEL</Text>
           <MaterialIcons name="cancel" size={24} color="white" />
         </TouchableOpacity>

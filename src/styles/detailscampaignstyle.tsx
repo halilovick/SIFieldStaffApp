@@ -58,6 +58,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
 
+    locationStatusButton:{
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        paddingRight: 20,
+        paddingLeft: 20,
+    },
+
     button: {
         paddingVertical: 10,
         paddingHorizontal: 20,
