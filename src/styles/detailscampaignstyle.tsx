@@ -18,9 +18,23 @@ const styles = StyleSheet.create({
     },
     label: {
         fontWeight: 'bold',
-        fontSize:16,
+        fontSize: 16,
         marginBottom: 5,
         color: '#333',
+    },
+    locationsContainer: {
+        marginBottom: 10,
+        marginTop: 20,
+    },
+    locationButton: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+    },
+    locationText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: '#333',
+        marginRight: 5,
     },
     value: {
         fontSize: 16,
@@ -29,29 +43,21 @@ const styles = StyleSheet.create({
     boldText: {
         fontWeight: '500',
         color: '#333',
-        fontSize:16,
+        fontSize: 16,
     },
     normalText: {
         fontWeight: 'normal',
     },
-    locationTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-        marginBottom: 10,
-        color: '#333',
-    },
-    locationsContainer: {
-        flex: 0.95,
-        marginBottom: 10,
-        marginTop:10
-    },
+
     buttonContainer: {
+        position: 'absolute',
+        bottom: 40,
+        left: 40,
+        right: 40,
         flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-        paddingRight: 20,
-        paddingLeft: 20,
+        justifyContent: 'space-between',
     },
+
     button: {
         paddingVertical: 10,
         paddingHorizontal: 20,
@@ -90,19 +96,19 @@ const styles = StyleSheet.create({
     cardHeaderText: {
         fontWeight: 'bold',
         color: '#333',
-        fontSize:16,
+        fontSize: 16,
     },
     cardBody: {
         marginTop: 5,
     },
     cardBodyText: {
         color: '#666',
-        fontSize:16,
+        fontSize: 16,
     },
     nameValue: {
-        marginTop:10,
-        fontWeight: '900', 
-        fontSize: 24, 
+        marginTop: 10,
+        fontWeight: '900',
+        fontSize: 24,
         color: '#333',
     },
     dateContainer: {
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     dateLabel: {
         marginRight: 10,
         fontWeight: 'bold',
-        fontSize:16,
+        fontSize: 16,
         marginBottom: 5,
         color: '#333',
     },
@@ -121,14 +127,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 20,
-        backgroundColor: '#e6f2ff', 
+        backgroundColor: '#e6f2ff',
         padding: 10,
     },
     calendarIcon: {
         marginRight: 10,
     },
     dateValueContainer: {
-        flex:0.55
+        flex: 0.55
     },
     dateValue: {
         fontSize: 16,
@@ -141,7 +147,7 @@ const styles = StyleSheet.create({
     },
     dropdownContainer: {
         marginBottom: 20,
-        marginTop:20
+        marginTop: 20
     },
     dropdown: {
         height: 40,
@@ -152,23 +158,36 @@ const styles = StyleSheet.create({
     },
     locContainer: {
         flex: 1,
-        padding: 10,
+        padding: 15,
+    },
+    searchInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 15,
+        height: 45, 
+        elevation: 0.3,
+        borderRadius: 20, 
+        borderColor: 'white',
+        borderWidth:0.2,
+        backgroundColor: '#fff', 
+        paddingHorizontal: 15, 
     },
     searchInput: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingHorizontal: 10,
+        flex: 1,
+        fontSize: 16,
+        color: '#333', 
     },
     unreachableTitle: {
-        fontWeight: '900', 
-        fontSize: 24, 
+        fontWeight: 'bold', 
+        fontSize: 20, 
         color: '#333',
         marginTop: 10,
         marginBottom: 10,
         alignSelf: 'center',
-    }
+    },
+    searchIcon: {
+        marginRight: 10, 
+    },
 });
 
 export default styles;
