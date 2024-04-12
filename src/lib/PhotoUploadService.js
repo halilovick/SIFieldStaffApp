@@ -27,6 +27,7 @@ async function downloadImage(image) {
 async function uploadImage(locationId, fileUri) {
     try {
         const fileData = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64 });
+        return fileData
         const name = `record-${locationId}-${new Date().toISOString()}`
         const response = await axios.put(`${route}/${name}`, fileData, {
             headers: {
