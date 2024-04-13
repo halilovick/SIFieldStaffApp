@@ -9,8 +9,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-.env
+azureConfig.js
 # macOS
 .DS_Store
+.env
 # testing
 /coverage

@@ -30,6 +30,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.khalilovic1.SIFieldStaffApp"
-    }
+    },
+    "permissions":["CAMERA"]
   }
 }

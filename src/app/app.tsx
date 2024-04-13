@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import AccountScreen from './account';
-import RecordDataScreen from "./record";
 import CampaignsScreen from "./campaigns";
 
 const Tab = createBottomTabNavigator();
@@ -15,9 +14,7 @@ const AppScreen = ({ navigation }) => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Record Data') {
-            iconName = focused ? 'archive' : 'archive-outline';
-          } else if (route.name === 'Account') {
+          if (route.name === 'Account') {
             iconName = focused ? 'person-circle' : 'person-circle-outline';
           } else if (route.name === 'Campaigns') {
             iconName = focused ? 'megaphone' : 'megaphone-outline';
@@ -29,9 +26,8 @@ const AppScreen = ({ navigation }) => {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name="Record Data" component={RecordDataScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Campaigns" component={CampaignsScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }
