@@ -12,3 +12,5 @@ web-build/
 .env
 # macOS
 .DS_Store
+# testing
+/coverage
