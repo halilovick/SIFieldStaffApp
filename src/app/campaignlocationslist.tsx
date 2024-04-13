@@ -116,6 +116,7 @@ const CampaignLocationsList = ({ route }) => {
                     />
                 )}
                 keyExtractor={(item) => item.id}
+                testID="flatList"
             />
         </View>
     );
