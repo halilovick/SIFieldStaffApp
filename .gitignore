@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
+azureConfig.js
 # macOS
 .DS_Store
+.env
