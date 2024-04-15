@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import styles from '@/styles/recordstyle';
 import { SearchBar } from "react-native-screens";
@@ -7,6 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import ImageInput from "@/components/ImageInput";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Location from 'expo-location';
 
 const LocationService = require('../lib/LocationService.js');
 
@@ -18,9 +19,24 @@ const RecordDataScreen = ({ route, navigation }) => {
   const [imageURL, setImageURL] = useState('');
   const [serialNumberValid, setSerialNumberValid] = useState(true);
   const [inventoryNumberValid, setInventoryNumberValid] = useState(true);
-  const [coordinatesValid, setCoordinatesValid] = useState(true);
+  //const [coordinatesValid, setCoordinatesValid] = useState(true);
   const [fullAdressValid, setFullAdressValid] = useState(true);
 
+  useEffect(()=>{
+    const getPermissions=async ()=>{
+      let { status }=await Location.requestForegroundPermissionsAsync();
+      if(status!=='granted'){
+        alert('Please grant location permissions');
+        return;
+      }
+
+      let currentLocation=await Location.getCurrentPositionAsync({});
+      setCoordinates(`${currentLocation.coords.latitude}, ${currentLocation.coords.longitude}`);
+      console.log(currentLocation);
+    };
+    getPermissions();
+
+  },[])
   const getImageURL = (url) => {
     setImageURL(url);
   }
@@ -36,7 +52,7 @@ const RecordDataScreen = ({ route, navigation }) => {
     try {
       const response = await LocationService.recordData(serialNumber, inventoryNumber, coordinates, fullAdress, imageURL, route.params.locationId, JSON.parse(await AsyncStorage.getItem('user')).id);
       resetStates();
-      alert('Data saved successfully!')
+      alert('Data saved successfully!');
       navigation.navigate('Campaigns');
     } catch (error) {
       alert(error);
@@ -45,7 +61,7 @@ const RecordDataScreen = ({ route, navigation }) => {
 
   const resetStates = () => {
     setSerialNumber('');
-    setCoordinates('');
+    //setCoordinates('');
     setFullAdress('');
     setInventoryNumber('');
   }
@@ -74,7 +90,7 @@ const RecordDataScreen = ({ route, navigation }) => {
       <TextInput style={[styles.input, !inventoryNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={inventoryNumber} onChangeText={(text) => handleChangeText(text, setInventoryNumber, setInventoryNumberValid, "^[a-zA-Z0-9]*$")} />
 
       <Text style={styles.inputTitle}>Coordinates</Text>
-      <TextInput style={[styles.input, !coordinatesValid && styles.invalidInput]} placeholder="e.g. 46.739, 53.899" value={coordinates} onChangeText={(text) => handleChangeText(text, setCoordinates, setCoordinatesValid, "^[a-zA-Z0-9 ,.]+$")} />
+      <TextInput style={styles.input} placeholder="e.g. 46.739, 53.899" value={coordinates} readOnly={true}/>
 
       <Text style={styles.inputTitle}>Full Address</Text>
       <TextInput style={[styles.input, !fullAdressValid && styles.invalidInput]} placeholder="e.g. First Street" value={fullAdress} onChangeText={(text) => handleChangeText(text, setFullAdress, setFullAdressValid, "^[a-zA-Z0-9 ,.]+$")} />

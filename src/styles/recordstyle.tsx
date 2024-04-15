@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flex: 1,
     borderRadius: 12,
+    color:'black'
   },
   invalidInput: {
     borderColor: 'red'
