@@ -18,6 +18,7 @@ const RecordDataScreen = ({ route, navigation }) => {
   const [coordinates, setCoordinates] = useState('');
   const [fullAdress, setFullAdress] = useState('');
   const [imageURL, setImageURL] = useState('');
+  const [ocrImageURL, setOcrImageURL] = useState('');
   const [serialNumberValid, setSerialNumberValid] = useState(true);
   const [inventoryNumberValid, setInventoryNumberValid] = useState(true);
   const [fullAdressValid, setFullAdressValid] = useState(true);
@@ -43,22 +44,20 @@ const RecordDataScreen = ({ route, navigation }) => {
     setImageURL(url);
   }
 
-
   const handleFieldImageURL = (url) => {
-    setImageURL(url);
+    setOcrImageURL(url);
     console.log(url);
     console.log(openedField)
   }
 
   const handleSaveImage = () => {
-    if (imageURL !== '') {
+    if (ocrImageURL !== '') {
       setModalVisible(false);
     } else {
       alert('Please upload an image');
     }
   }
   
-
   const handleSave = async () => {
     if (serialNumber == '' || inventoryNumber == '' || coordinates == '' || fullAdress == '' || imageURL == '') {
       alert('Please fill all fields and upload an image!');
@@ -97,11 +96,10 @@ const RecordDataScreen = ({ route, navigation }) => {
 
   const openImagePicker = async (fieldName) => {
     setOpenedField(fieldName);
-    setImageURL('');
+    setOcrImageURL('');
     setModalVisible(true);
   }
   
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.titleContainer}>
@@ -136,7 +134,7 @@ const RecordDataScreen = ({ route, navigation }) => {
       <TextInput style={styles.input} placeholder="e.g. 46.739, 53.899" value={coordinates} readOnly={true} />
 
       <Text style={[styles.inputTitle, styles.imageInputTitle]}>Upload location photo</Text>
-      <ImageInput getImageURL={getImageURL} />
+      <ImageInput getImageURL={getImageURL} allowEditing={false}/>
 
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
@@ -162,8 +160,8 @@ const RecordDataScreen = ({ route, navigation }) => {
         >
           <View style={styles.modalContent}>
             <Text style={[styles.inputTitle, styles.imageInputTitle]}>Upload photo for {openedField}</Text>
-            <ImageInput getImageURL={handleFieldImageURL} />
-            {imageURL !== '' && (
+            <ImageInput getImageURL={handleFieldImageURL} allowEditing={true} />
+            {ocrImageURL !== '' && (
               <TouchableOpacity style={styles.modalButton} onPress={handleSaveImage}>
                 <Text style={styles.buttonText}>SAVE</Text>
                 <AntDesign name="save" size={24} color="white" />

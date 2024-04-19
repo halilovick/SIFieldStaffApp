@@ -5,13 +5,13 @@ import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
-const ImageInput = ({ getImageURL }) => {
+const ImageInput = ({ getImageURL, allowEditing }) => {
   const [image, setImage] = useState(null);
 
   const selectPicture = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      allowsEditing: allowEditing,
       aspect: [4, 3],
       quality: 1,
     });
@@ -25,7 +25,7 @@ const ImageInput = ({ getImageURL }) => {
   const takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      allowsEditing: allowEditing,
     });
 
     if (!result.canceled) {
