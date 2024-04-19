@@ -6,9 +6,10 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     button: {
+        borderRadius:20,
         backgroundColor: '#2f3849',
-        paddingHorizontal: 10,
-        paddingVertical: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
         marginVertical: 4,
         color: 'white',
         justifyContent: 'center',
