@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Text, View, TouchableOpacity, TextInput, Modal } from "react-native";
 import styles from '@/styles/recordstyle';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -11,6 +11,7 @@ import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 
 const LocationService = require('../lib/LocationService.js');
+const OCRService = require('../lib/OCRService.js');
 
 const RecordDataScreen = ({ route, navigation }) => {
   const [serialNumber, setSerialNumber] = useState('');
@@ -24,6 +25,19 @@ const RecordDataScreen = ({ route, navigation }) => {
   const [fullAdressValid, setFullAdressValid] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [openedField, setOpenedField] = useState(null);
+
+  const inputRefs = {
+    serialNumberInput: useRef(null),
+    inventoryNumberInput: useRef(null),
+    fullAddressInput: useRef(null),
+  };
+
+  const setTextInInput = (inputName, text) => {
+    const inputRef = inputRefs[inputName];
+    if (inputRef && inputRef.current) {
+      inputRef.current.setNativeProps({ text });
+    }
+  };
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -46,18 +60,20 @@ const RecordDataScreen = ({ route, navigation }) => {
 
   const handleFieldImageURL = (url) => {
     setOcrImageURL(url);
-    console.log(url);
-    console.log(openedField)
   }
 
-  const handleSaveImage = () => {
+  const handleSaveImage = async () => {
     if (ocrImageURL !== '') {
+      const image = { uri: ocrImageURL };
+      const response = await OCRService.getOCRFromImage('bos', image);
+      console.log(response);
+      setTextInInput(openedField, response);
       setModalVisible(false);
     } else {
       alert('Please upload an image');
     }
   }
-  
+
   const handleSave = async () => {
     if (serialNumber == '' || inventoryNumber == '' || coordinates == '' || fullAdress == '' || imageURL == '') {
       alert('Please fill all fields and upload an image!');
@@ -99,7 +115,7 @@ const RecordDataScreen = ({ route, navigation }) => {
     setOcrImageURL('');
     setModalVisible(true);
   }
-  
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.titleContainer}>
@@ -109,24 +125,24 @@ const RecordDataScreen = ({ route, navigation }) => {
 
       <Text style={styles.inputTitle}>Serial Number</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={[styles.input, !serialNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={serialNumber} onChangeText={(text) => handleChangeText(text, setSerialNumber, setSerialNumberValid, "^[a-zA-Z0-9]*$")} />
-        <TouchableOpacity style={styles.iconContainer} onPress={() => openImagePicker('Serial Number')}>
+        <TextInput ref={inputRefs.serialNumberInput} style={[styles.input, !serialNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={serialNumber} onChangeText={(text) => handleChangeText(text, setSerialNumber, setSerialNumberValid, "^[a-zA-Z0-9]*$")} />
+        <TouchableOpacity style={styles.iconContainer} onPress={() => openImagePicker('serialNumberInput')}>
           <Ionicons name="scan-sharp" size={26} color="#333" />
         </TouchableOpacity>
       </View>
 
       <Text style={styles.inputTitle}>Inventory Number</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={[styles.input, !inventoryNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={inventoryNumber} onChangeText={(text) => handleChangeText(text, setInventoryNumber, setInventoryNumberValid, "^[a-zA-Z0-9]*$")} />
-        <TouchableOpacity style={styles.iconContainer}onPress={() => openImagePicker('Inventory number')}>
+        <TextInput ref={inputRefs.inventoryNumberInput} style={[styles.input, !inventoryNumberValid && styles.invalidInput]} placeholder="e.g. 123456789" value={inventoryNumber} onChangeText={(text) => handleChangeText(text, setInventoryNumber, setInventoryNumberValid, "^[a-zA-Z0-9]*$")} />
+        <TouchableOpacity style={styles.iconContainer} onPress={() => openImagePicker('inventoryNumberInput')}>
           <Ionicons name="scan-sharp" size={26} color="#333" />
         </TouchableOpacity>
       </View>
 
       <Text style={styles.inputTitle}>Full Address</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={[styles.input, !fullAdressValid && styles.invalidInput]} placeholder="e.g. First Street" value={fullAdress} onChangeText={(text) => handleChangeText(text, setFullAdress, setFullAdressValid, "^[a-zA-Z0-9 ,.]+$")} />
-        <TouchableOpacity style={styles.iconContainer} onPress={() => openImagePicker('Full Address')}>
+        <TextInput ref={inputRefs.fullAddressInput} style={[styles.input, !fullAdressValid && styles.invalidInput]} placeholder="e.g. First Street" value={fullAdress} onChangeText={(text) => handleChangeText(text, setFullAdress, setFullAdressValid, "^[a-zA-Z0-9 ,.]+$")} />
+        <TouchableOpacity style={styles.iconContainer} onPress={() => openImagePicker('fullAddressInput')}>
           <Ionicons name="scan-sharp" size={26} color="#333" />
         </TouchableOpacity>
       </View>
@@ -134,7 +150,7 @@ const RecordDataScreen = ({ route, navigation }) => {
       <TextInput style={styles.input} placeholder="e.g. 46.739, 53.899" value={coordinates} readOnly={true} />
 
       <Text style={[styles.inputTitle, styles.imageInputTitle]}>Upload location photo</Text>
-      <ImageInput getImageURL={getImageURL} allowEditing={false}/>
+      <ImageInput getImageURL={getImageURL} allowEditing={false} />
 
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
@@ -159,7 +175,7 @@ const RecordDataScreen = ({ route, navigation }) => {
           onPress={() => setModalVisible(false)}
         >
           <View style={styles.modalContent}>
-            <Text style={[styles.inputTitle, styles.imageInputTitle]}>Upload photo for {openedField}</Text>
+            <Text style={[styles.inputTitle, styles.imageInputTitle]}>Upload photo</Text>
             <ImageInput getImageURL={handleFieldImageURL} allowEditing={true} />
             {ocrImageURL !== '' && (
               <TouchableOpacity style={styles.modalButton} onPress={handleSaveImage}>
