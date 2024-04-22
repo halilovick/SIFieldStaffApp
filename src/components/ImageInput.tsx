@@ -42,7 +42,7 @@ const ImageInput = ({ getImageURL, allowEditing }) => {
     <View style={{ alignItems: 'center' }}>
       {image ? (
         <TouchableOpacity onPress={selectPicture} style={styles.imageContainer}>
-          <Image source={{ uri: image }} style={styles.image} resizeMode='cover' />
+          <Image source={{ uri: image }} style={styles.image} resizeMode='contain' />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={selectPicture}>
