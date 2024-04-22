@@ -13,3 +13,5 @@ azureConfig.js
 # macOS
 .DS_Store
 .env
+# testing
+/coverage
