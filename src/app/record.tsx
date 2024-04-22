@@ -51,7 +51,6 @@ const RecordDataScreen = ({ route, navigation }) => {
       setCoordinates(`${currentLocation.coords.latitude}, ${currentLocation.coords.longitude}`);
     };
     getPermissions();
-
   }, [])
 
   const getImageURL = (url) => {
@@ -66,7 +65,6 @@ const RecordDataScreen = ({ route, navigation }) => {
     if (ocrImageURL !== '') {
       const image = { uri: ocrImageURL };
       const response = await OCRService.getOCRFromImage('bos', image);
-      console.log(response);
       setTextInInput(openedField, response);
       setModalVisible(false);
     } else {
