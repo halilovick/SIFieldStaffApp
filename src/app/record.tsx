@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, TouchableOpacity, TextInput, Modal } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, Modal, ActivityIndicator } from "react-native";
 import styles from '@/styles/recordstyle';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -25,6 +25,8 @@ const RecordDataScreen = ({ route, navigation }) => {
   const [fullAdressValid, setFullAdressValid] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [openedField, setOpenedField] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   const inputRefs = {
     serialNumberInput: useRef(null),
@@ -53,6 +55,10 @@ const RecordDataScreen = ({ route, navigation }) => {
     getPermissions();
   }, [])
 
+  useEffect(() => {
+    console.log(loading)
+  }, [loading])
+
   const getImageURL = (url) => {
     setImageURL(url);
   }
@@ -64,7 +70,9 @@ const RecordDataScreen = ({ route, navigation }) => {
   const handleSaveImage = async () => {
     if (ocrImageURL !== '') {
       const image = { uri: ocrImageURL };
+      setLoading(true);
       const response = await OCRService.getOCRFromImage('bos', image);
+      setLoading(false)
       setTextInInput(openedField, response);
       setModalVisible(false);
     } else {
@@ -175,6 +183,11 @@ const RecordDataScreen = ({ route, navigation }) => {
           <View style={styles.modalContent}>
             <Text style={[styles.inputTitle, styles.imageInputTitle]}>Upload photo</Text>
             <ImageInput getImageURL={handleFieldImageURL} allowEditing={true} />
+            {loading && (
+              <View style={styles.loadingOverlay}>
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
+            )}
             {ocrImageURL !== '' && (
               <TouchableOpacity style={styles.modalButton} onPress={handleSaveImage}>
                 <Text style={styles.buttonText}>SAVE</Text>
