@@ -1,5 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 const AuthService = require('./AuthService.js')
-const PhotoUploadService = require('./PhotoUploadService.js')
+const BASE_URL = "https://fieldlogistics-control.azurewebsites.net/api";
+
 /*  Send recorded data to the database.
 *   Params: serialNumber,
 *           inventoryNumber,
@@ -9,21 +12,40 @@ const PhotoUploadService = require('./PhotoUploadService.js')
 */
 const recordData = async (serialNumber, inventoryNumber, gpsCoordinates, fullAddress, photoUrl, locationId, userId) => {
     try {
-        const photoBin = await PhotoUploadService.uploadImage(locationId, photoUrl)
-        const body = {
-            serialNumber,
-            inventoryNumber,
-            gpsCoordinates,
-            fullAddress,
-            photoUrl,
-            locationId,
-            userId,
-            createdAt: new Date().toISOString(),
-            photoBin
+        var data = new FormData();
+        data.append('serialNumber', serialNumber);
+        data.append('inventoryNumber', inventoryNumber);
+        data.append('gpsCoordinates', gpsCoordinates);
+        data.append('fullAddress', fullAddress);
+        data.append('locationId', locationId);
+        data.append('createdAt', new Date().toISOString())
+        data.append('userId', userId);
+        data.append('image', {
+            uri: photoUrl,
+            type: 'image/jpeg',
+            name: `record-${locationId}-${new Date().toISOString()}.jpeg`,
+        });
+        const token = await AsyncStorage.getItem('token');
+        if (!token) {
+            return null;
+        }
+
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
         };
-        const response = await AuthService.makeAuthenticatedRequest(`/location/record`, null, "POST", body);
-        return response;
+
+        const axiosConfig = {
+            baseURL: BASE_URL,
+            url: '/location/record',
+            method: 'POST',
+            headers: headers,
+            data: data,
+        };
+        const response = await axios(axiosConfig);
+        return response.data;
     } catch (error) {
+        console.log(error)
         throw error;
     }
 }
