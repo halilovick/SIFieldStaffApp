@@ -119,6 +119,7 @@ const DetailsCampaign = ({ route, navigation }) => {
                     <View style={styles.dropdownContainer}>
                         <Text style={styles.label}>Update Progress</Text>
                         <Picker
+                            testID="workStatusPicker"
                             selectedValue={campaignStatus}
                             style={styles.dropdown}
                             onValueChange={(itemValue, itemIndex) => handleStatusChange(itemValue)}

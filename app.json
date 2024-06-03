@@ -26,7 +26,12 @@
       }
     },
     "android": {
-      "package": "com.khalilovic1.SIFieldStaffApp"
+      "package": "com.khalilovic1.SIFieldStaffApp",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "ios": {
       "bundleIdentifier": "com.khalilovic1.SIFieldStaffApp"

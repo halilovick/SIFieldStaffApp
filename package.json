@@ -12,17 +12,19 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/datetimepicker": "7.6.1",
+    "@react-native-picker/picker": "^2.7.5",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/material-bottom-tabs": "^6.2.28",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
     "@types/jest": "^29.5.12",
     "axios": "^1.6.8",
-    "expo": "~50.0.15",
-    "expo-constants": "~15.4.5",
-    "expo-file-system": "~16.0.8",
+    "expo": "~50.0.17",
+    "expo-constants": "~15.4.6",
+    "expo-file-system": "~16.0.9",
     "expo-image-picker": "~14.7.1",
     "expo-linking": "~6.2.2",
+    "expo-location": "~16.5.5",
     "expo-router": "~3.4.8",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
@@ -44,7 +46,8 @@
     "react-native-svg": "14.1.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.10",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "expo-image-manipulator": "~11.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

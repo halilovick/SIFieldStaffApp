@@ -5,13 +5,13 @@ import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
-const ImageInput = ({ getImageURL }) => {
+const ImageInput = ({ getImageURL, allowEditing }) => {
   const [image, setImage] = useState(null);
 
   const selectPicture = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
+      allowsEditing: allowEditing,
       aspect: [4, 3],
       quality: 1,
     });
@@ -25,7 +25,7 @@ const ImageInput = ({ getImageURL }) => {
   const takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
+      allowsEditing: allowEditing,
     });
 
     if (!result.canceled) {
@@ -40,10 +40,9 @@ const ImageInput = ({ getImageURL }) => {
 
   return (
     <View style={{ alignItems: 'center' }}>
-
       {image ? (
         <TouchableOpacity onPress={selectPicture} style={styles.imageContainer}>
-          <Image source={{ uri: image }} style={styles.image} resizeMode='cover' />
+          <Image source={{ uri: image }} style={styles.image} resizeMode='contain' />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={selectPicture}>
@@ -56,11 +55,15 @@ const ImageInput = ({ getImageURL }) => {
         </TouchableOpacity>
       )}
 
-      <Text style={styles.text}>OR</Text>
-      <TouchableOpacity onPress={takePicture} style={styles.button}>
-        <Text style={styles.buttonText}>TAKE PHOTO</Text>
-        <AntDesign name="camera" size={24} color="white" />
-      </TouchableOpacity>
+      {image ? null : (
+        <React.Fragment>
+          <Text style={styles.text}>OR</Text>
+          <TouchableOpacity onPress={takePicture} style={styles.button}>
+            <Text style={styles.buttonText}>TAKE PHOTO</Text>
+            <AntDesign name="camera" size={24} color="white" />
+          </TouchableOpacity>
+        </React.Fragment>
+      )}
     </View>
   )
 }
