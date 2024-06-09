@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthService = require('./AuthService.js');
-const BASE_URL = "https://fieldlogistics-control.azurewebsites.net/api";
+const BASE_URL = "http://public-ip-address/api";
 
 const getOCRFromImage = async (destinationLanguage, image) => {
     try {

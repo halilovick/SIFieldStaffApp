@@ -3,7 +3,7 @@ import axios from 'axios';
 const getManualEntryKey = async (username, password, token) => {
     try {
         const response = await axios.post(
-            `https://fieldlogistics-control.azurewebsites.net/api/login/setup/2fa`,
+            `http://public-ip-address/api/login/setup/2fa`,
             { username, password },
             {
                 headers: {
@@ -22,7 +22,7 @@ const getManualEntryKey = async (username, password, token) => {
 const authenticateTwoFactorCode = async (code, username, password, token) => {
     try {
         const response = await axios.post(
-            `https://fieldlogistics-control.azurewebsites.net/api/login/authenticate/2fa`,
+            `http://public-ip-address/api/login/authenticate/2fa`,
             { username, password },
             {
                 headers: {

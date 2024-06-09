@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 const AuthService = require('./AuthService.js')
-const BASE_URL = "https://fieldlogistics-control.azurewebsites.net/api";
+const BASE_URL = "http://public-ip-address/api";
 
 /*  Send recorded data to the database.
 *   Params: serialNumber,
